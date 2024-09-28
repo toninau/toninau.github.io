@@ -5,7 +5,7 @@ type PostPageProps = {
 };
 
 export async function generateStaticParams() {
-  return getPostIds().map((id) => ({ id }));
+  return getPostIds();
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
