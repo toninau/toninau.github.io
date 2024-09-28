@@ -5,6 +5,10 @@ const nextConfig = {
   basePath: '',
   images: {
     unoptimized: true
+  },
+  // TODO: change to flat config
+  eslint: {
+    ignoreDuringBuilds: true,
   }
 };
 
