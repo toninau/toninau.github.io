@@ -6,19 +6,30 @@ import { parseIsoDateString } from "./dateUtils";
 
 export type PostId = string & { _brand: "postId" };
 
-type FrontMatter = {
+export type FrontMatter = {
   title: string;
   date: Date;
   description: string;
 };
 
-type Post = {
-  id: PostId;
-  data: FrontMatter;
-  content: unknown;
+export type PostMatter = {
+  frontMatter: FrontMatter;
+  content: string;
 };
 
-export function parsePostContent(fileContent: Buffer, filename: string) {
+export type Post = PostMatter & {
+  id: PostId;
+};
+
+export type HomePagePost = Omit<Post, "content">;
+
+export type ParsePostMatterResult =
+  | { isValid: true; value: PostMatter }
+  | { isValid: false; message: string };
+
+export function parsePostMatter(
+  fileContent: matter.Input
+): ParsePostMatterResult {
   const matterResult = matter(fileContent);
 
   const title = matterResult.data.title;
@@ -26,29 +37,38 @@ export function parsePostContent(fileContent: Buffer, filename: string) {
   const description = matterResult.data.description;
 
   if (Number.isNaN(date.getTime())) {
-    throw new Error(
-      `${filename} front matter is missing "date" property or "date" is not a valid date.`
-    );
+    return {
+      isValid: false,
+      message:
+        'Front matter is missing "date" property or "date" is not a valid date.',
+    };
   }
 
   if (typeof title !== "string") {
-    throw new Error(
-      `${filename} front matter is missing "title" property or "title" is not a string.`
-    );
+    return {
+      isValid: false,
+      message:
+        'Front matter is missing "title" property or "title" is not a string.',
+    };
   }
 
   if (typeof description !== "string") {
-    throw new Error(
-      `${filename} front matter is missing "description" property or "description" is not a string.`
-    );
+    return {
+      isValid: false,
+      message:
+        'Front matter is missing "description" property or "description" is not a string.',
+    };
   }
 
   return {
-    ...matterResult,
-    data: {
-      title,
-      date,
-      description,
+    isValid: true,
+    value: {
+      content: matterResult.content,
+      frontMatter: {
+        title,
+        date,
+        description,
+      },
     },
   };
 }
@@ -57,35 +77,54 @@ export function parsePostId(filename: string): PostId {
   return filename.replace(/\.md$/, "") as PostId;
 }
 
-const postsDirectory = join(cwd(), "src", "posts");
-const postsFilenames = readdirSync(postsDirectory);
-const postsContents = createPostMap();
+export const postsDirectory = join(cwd(), "src", "posts");
 
-function createPostMap() {
-  return postsFilenames.reduce((posts, filename) => {
-    const id = parsePostId(filename);
-    const fileContent = readFileSync(join(postsDirectory, filename));
-    const postContent = parsePostContent(fileContent, filename);
-    return posts.set(id, {
-      ...postContent,
-      id,
-    });
-  }, new Map<Post["id"], Post>());
+export function getPostIds(postsDirectory: string): { id: PostId }[] {
+  return readdirSync(postsDirectory).map((filename) => ({
+    id: parsePostId(filename),
+  }));
 }
 
-export function getPostIds() {
-  return Array.from(postsContents.keys()).map((postId) => ({ id: postId }));
+export function getSortedHomePagePosts(postsDirectory: string): HomePagePost[] {
+  return readdirSync(postsDirectory)
+    .map((filename) => {
+      const id = parsePostId(filename);
+      const fileContent = readFileSync(join(postsDirectory, filename));
+      const postMatterResult = parsePostMatter(fileContent);
+
+      if (!postMatterResult.isValid) {
+        throw new PostMatterError(filename, postMatterResult.message);
+      }
+
+      return {
+        id,
+        frontMatter: postMatterResult.value.frontMatter,
+      };
+    })
+    .sort(
+      (a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime()
+    );
 }
 
-export function getPostsCompact() {
-  return Array.from(postsContents.values())
-    .map((val) => ({
-      data: val.data,
-      id: val.id,
-    }))
-    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+export function getPost(postsDirectory: string, id: Post["id"]): Post {
+  const filename = `${id}.md`;
+  const fileContent = readFileSync(join(postsDirectory, filename));
+  const postMatterResult = parsePostMatter(fileContent);
+
+  if (!postMatterResult.isValid) {
+    throw new PostMatterError(filename, postMatterResult.message);
+  }
+
+  // TODO: process postContent.content / markdown to html (remark or something else)
+
+  return {
+    ...postMatterResult.value,
+    id,
+  };
 }
 
-export function getPost(id: Post["id"]) {
-  return postsContents.get(id);
+export class PostMatterError extends Error {
+  constructor(filename: string, message: string) {
+    super(`Content in ${filename} is invalid. ${message}`);
+  }
 }

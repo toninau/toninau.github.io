@@ -1,21 +1,27 @@
-import { getPost, getPostIds, PostId } from "@/lib/postUtils";
+import { getPost, getPostIds, PostId, postsDirectory } from "@/lib/postUtils";
 
 type PostPageProps = {
   params: { id: PostId };
 };
 
 export async function generateStaticParams() {
-  return getPostIds();
+  return getPostIds(postsDirectory);
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
-  const post = getPost(params.id);
+  const post = getPost(postsDirectory, params.id);
   return {
-    title: post?.data.title,
-    description: post?.data.description,
+    title: post?.frontMatter.title,
+    description: post?.frontMatter.description,
   };
 }
 
 export default function PostPage({ params }: PostPageProps) {
-  return <div>My Post: {params.id}</div>;
+  const post = getPost(postsDirectory, params.id);
+
+  return <div>
+    <h1>
+      {post.frontMatter.title}
+    </h1>
+  </div>;
 }
