@@ -8,7 +8,7 @@ const nextConfig = {
   },
   // TODO: change to flat config
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: true
   }
 };
 

@@ -1,10 +1,10 @@
-import matter from "gray-matter";
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
-import { cwd } from "node:process";
-import { parseIsoDateString } from "./dateUtils";
+import matter from 'gray-matter';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+import { parseIsoDateString } from './dateUtils';
 
-export type PostId = string & { _brand: "postId" };
+export type PostId = string & { _brand: 'postId' };
 
 export type FrontMatter = {
   title: string;
@@ -21,15 +21,13 @@ export type Post = PostMatter & {
   id: PostId;
 };
 
-export type HomePagePost = Omit<Post, "content">;
+export type HomePagePost = Omit<Post, 'content'>;
 
 export type ParsePostMatterResult =
   | { isValid: true; value: PostMatter }
   | { isValid: false; message: string };
 
-export function parsePostMatter(
-  fileContent: matter.Input
-): ParsePostMatterResult {
+export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResult {
   const matterResult = matter(fileContent);
 
   const title = matterResult.data.title;
@@ -39,24 +37,21 @@ export function parsePostMatter(
   if (Number.isNaN(date.getTime())) {
     return {
       isValid: false,
-      message:
-        'Front matter is missing "date" property or "date" is not a valid date.',
+      message: 'Front matter is missing "date" property or "date" is not a valid date.'
     };
   }
 
-  if (typeof title !== "string") {
+  if (typeof title !== 'string') {
     return {
       isValid: false,
-      message:
-        'Front matter is missing "title" property or "title" is not a string.',
+      message: 'Front matter is missing "title" property or "title" is not a string.'
     };
   }
 
-  if (typeof description !== "string") {
+  if (typeof description !== 'string') {
     return {
       isValid: false,
-      message:
-        'Front matter is missing "description" property or "description" is not a string.',
+      message: 'Front matter is missing "description" property or "description" is not a string.'
     };
   }
 
@@ -67,21 +62,21 @@ export function parsePostMatter(
       frontMatter: {
         title,
         date,
-        description,
-      },
-    },
+        description
+      }
+    }
   };
 }
 
 export function parsePostId(filename: string): PostId {
-  return filename.replace(/\.md$/, "") as PostId;
+  return filename.replace(/\.md$/, '') as PostId;
 }
 
-export const postsDirectory = join(cwd(), "src", "posts");
+export const postsDirectory = join(cwd(), 'src', 'posts');
 
 export function getPostIds(postsDirectory: string): { id: PostId }[] {
   return readdirSync(postsDirectory).map((filename) => ({
-    id: parsePostId(filename),
+    id: parsePostId(filename)
   }));
 }
 
@@ -98,15 +93,13 @@ export function getSortedHomePagePosts(postsDirectory: string): HomePagePost[] {
 
       return {
         id,
-        frontMatter: postMatterResult.value.frontMatter,
+        frontMatter: postMatterResult.value.frontMatter
       };
     })
-    .sort(
-      (a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime()
-    );
+    .sort((a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime());
 }
 
-export function getPost(postsDirectory: string, id: Post["id"]): Post {
+export function getPost(postsDirectory: string, id: Post['id']): Post {
   const filename = `${id}.md`;
   const fileContent = readFileSync(join(postsDirectory, filename));
   const postMatterResult = parsePostMatter(fileContent);
@@ -119,7 +112,7 @@ export function getPost(postsDirectory: string, id: Post["id"]): Post {
 
   return {
     ...postMatterResult.value,
-    id,
+    id
   };
 }
 

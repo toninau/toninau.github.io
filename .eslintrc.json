@@ -1,4 +1,4 @@
 // replace this file with flat config
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": ["next/core-web-vitals", "next/typescript", "prettier"]
 }

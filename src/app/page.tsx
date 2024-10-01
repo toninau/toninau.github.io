@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { getSortedHomePagePosts, postsDirectory } from "@/lib/postUtils";
-import DateText from "@/components/DateText";
+import Link from 'next/link';
+import { getSortedHomePagePosts, postsDirectory } from '@/lib/postUtils';
+import DateText from '@/components/DateText';
 
 export default function HomePage() {
   const postsFrontMatter = getSortedHomePagePosts(postsDirectory);
@@ -10,9 +10,7 @@ export default function HomePage() {
       <Link href="/test">Go to test page</Link>
       {postsFrontMatter.map((frontMatter) => (
         <div key={frontMatter.id}>
-          <Link href={`/posts/${frontMatter.id}`}>
-            {frontMatter.frontMatter.title}
-          </Link>
+          <Link href={`/posts/${frontMatter.id}`}>{frontMatter.frontMatter.title}</Link>
           <p>{frontMatter.frontMatter.description}</p>
           <DateText date={frontMatter.frontMatter.date} />
         </div>
