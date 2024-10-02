@@ -13,7 +13,8 @@
     "lint": "next lint --no-cache",
     "test": "vitest",
     "prettier:check": "prettier . --check",
-    "prettier:write": "prettier . --write"
+    "prettier:write": "prettier . --write",
+    "tsc:check": "tsc --noEmit"
   },
   "dependencies": {
     "gray-matter": "4.0.3",

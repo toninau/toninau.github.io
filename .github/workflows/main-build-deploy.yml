@@ -48,6 +48,12 @@ jobs:
         run: npm ci
       - name: Build with Next.js
         run: npm run build
+      - name: Run prettier
+        run: npm run prettier:check
+      - name: Run lint
+        run: npm run lint
+      - name: Run tests
+        run: npm run test
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
