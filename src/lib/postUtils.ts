@@ -3,6 +3,10 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { cwd } from 'node:process';
 import { parseIsoDateString } from './dateUtils';
+import rehypeStringify from 'rehype-stringify';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import { unified } from 'unified';
 
 export type PostId = string & { _brand: 'postId' };
 
@@ -17,11 +21,13 @@ export type PostMatter = {
   content: string;
 };
 
-export type Post = PostMatter & {
+export type Post = {
+  frontMatter: FrontMatter;
+  html: string;
   id: PostId;
 };
 
-export type HomePagePost = Omit<Post, 'content'>;
+export type HomePagePost = Omit<Post, 'html'>;
 
 export type ParsePostMatterResult =
   | { isValid: true; value: PostMatter }
@@ -99,6 +105,11 @@ export function getSortedHomePagePosts(postsDirectory: string): HomePagePost[] {
     .sort((a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime());
 }
 
+const markdownProcessor = unified()
+  .use(remarkParse)
+  .use(remarkRehype, { allowDangerousHtml: false })
+  .use(rehypeStringify);
+
 export function getPost(postsDirectory: string, id: Post['id']): Post {
   const filename = `${id}.md`;
   const fileContent = readFileSync(join(postsDirectory, filename));
@@ -108,10 +119,11 @@ export function getPost(postsDirectory: string, id: Post['id']): Post {
     throw new PostMatterError(filename, postMatterResult.message);
   }
 
-  // TODO: process postContent.content / markdown to html (remark or something else)
+  const html = String(markdownProcessor.processSync(postMatterResult.value.content));
 
   return {
     ...postMatterResult.value,
+    html,
     id
   };
 }
