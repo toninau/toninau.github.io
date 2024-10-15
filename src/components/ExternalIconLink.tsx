@@ -10,11 +10,7 @@ export default function ExternalIconLink({
   title: string;
 }) {
   return (
-    <a
-      href={href}
-      title={title}
-      className="text-link-icon hover:text-link-icon-active focus:text-link-icon-active"
-    >
+    <a href={href} title={title} className="text-link-icon hover:text-link-icon-active">
       {children}
       <span className="sr-only">{title}</span>
     </a>

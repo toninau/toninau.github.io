@@ -41,8 +41,8 @@ export default function RootLayout({
       <body className={`${inter.variable} ${merriweather.variable} antialiased`}>
         <div className="flex content-center justify-center p-6">
           <header className="flex w-full max-w-screen-lg flex-row flex-nowrap items-center justify-between">
-            <Link href={'/'}>
-              <span className="text-2xl font-medium tracking-tighter">toninau</span>
+            <Link href={'/'} className="text-2xl font-medium tracking-tighter hover:underline">
+              toninau
             </Link>
             <button className="w-fit rounded-full bg-button-bg px-2 py-1 text-secondary">
               <LightModeIcon />
