@@ -1,3 +1,4 @@
+import DateText from '@/components/DateText';
 import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/postUtils';
 
 type PostPageProps = {
@@ -20,8 +21,21 @@ export default function PostPage({ params }: PostPageProps) {
   const post = getPost(postsDirectory, params.id);
 
   return (
-    <div>
-      <h1>{post.frontMatter.title}</h1>
-    </div>
+    <article>
+      <header>
+        <h1 className="text-6xl">{post.frontMatter.title}</h1>
+        <dl>
+          <dt className="sr-only">Published</dt>
+          <dd>
+            <DateText date={post.frontMatter.date} />
+          </dd>
+        </dl>
+      </header>
+      <section
+        className="prose py-6 md:prose-lg lg:prose-lg"
+        dangerouslySetInnerHTML={{ __html: post.html }}
+      ></section>
+      <footer>TAGS</footer>
+    </article>
   );
 }

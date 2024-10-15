@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss';
-import typography from '@tailwindcss/typography'
+import typography from '@tailwindcss/typography';
 
 const config: Config = {
   content: [
@@ -11,7 +11,15 @@ const config: Config = {
     extend: {
       colors: {
         background: 'var(--background)',
-        foreground: 'var(--foreground)'
+        primary: 'var(--primary)',
+        secondary: 'var(--secondary)',
+        'button-bg': 'var(--button-bg)',
+        'link-icon': 'var(--link-icon)',
+        'link-icon-active': 'var(--link-icon-active)'
+      },
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+        serif: ['var(--font-merriweather)']
       }
     }
   },

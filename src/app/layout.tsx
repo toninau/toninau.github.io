@@ -1,21 +1,34 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import { Inter, Merriweather } from 'next/font/google';
+import Link from 'next/link';
+
+import { LightModeIcon } from '@/components/icons/LightModeIcon';
+import { GitHubIcon } from '@/components/icons/GitHubIcon';
+import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
+import ExternalIconLink from '@/components/ExternalIconLink';
+
 import './globals.css';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900'
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter'
 });
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900'
+
+const merriweather = Merriweather({
+  weight: ['400', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-merriweather'
 });
 
 export const metadata: Metadata = {
-  title: 'Hello world!',
-  description: 'hello hello...'
+  title: {
+    template: "%s - toninau's Dev Blog",
+    default: "toninau's Dev Blog"
+  },
+  description: "toninau's software development blog."
 };
 
 export default function RootLayout({
@@ -25,7 +38,33 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body className={`${inter.variable} ${merriweather.variable} antialiased`}>
+        <div className="flex content-center justify-center p-6">
+          <header className="flex w-full max-w-screen-lg flex-row flex-nowrap items-center justify-between">
+            <Link href={'/'}>
+              <span className="text-2xl font-medium tracking-tighter">toninau</span>
+            </Link>
+            <button className="w-fit rounded-full bg-button-bg px-2 py-1 text-secondary">
+              <LightModeIcon />
+            </button>
+            <ul className="flex w-fit gap-x-4 rounded-full px-2 py-1">
+              <li>
+                <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
+                  <LinkedInIcon />
+                </ExternalIconLink>
+              </li>
+              <li>
+                <ExternalIconLink href="https://github.com/toninau" title="GitHub">
+                  <GitHubIcon />
+                </ExternalIconLink>
+              </li>
+            </ul>
+          </header>
+        </div>
+        <div className="flex content-center justify-center p-6">
+          <main className="w-full max-w-screen-lg">{children}</main>
+        </div>
+      </body>
     </html>
   );
 }
