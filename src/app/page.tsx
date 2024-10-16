@@ -9,7 +9,7 @@ export default function HomePage() {
     <>
       <h1 className="sr-only">toninau&apos;s Dev Blog</h1>
       <article>
-        <h2 className="py-4 text-6xl font-semibold tracking-tighter">About</h2>
+        <h2 className="my-4 text-6xl font-semibold tracking-tighter">About</h2>
         <p className="font-serif">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac eros egestas, eleifend
           lectus nec, sagittis elit. Fusce quis purus at ex interdum consequat at eget dui. Duis
@@ -23,7 +23,7 @@ export default function HomePage() {
         </p>
       </article>
       <article>
-        <h2 className="py-4 text-6xl font-semibold tracking-tighter">Posts</h2>
+        <h2 className="my-4 text-6xl font-semibold tracking-tighter">Posts</h2>
         <aside>
           <h3>Tags</h3>
           <ul className="flex flex-row flex-wrap gap-2">
