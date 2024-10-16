@@ -37,7 +37,7 @@ export default function HomePage() {
               <h3>{frontMatter.frontMatter.title}</h3>
             </PostLink>
             <p>{frontMatter.frontMatter.description}</p>
-            <DateText date={frontMatter.frontMatter.date} />
+            <DateText date={frontMatter.frontMatter.published} />
           </article>
         ))}
       </article>

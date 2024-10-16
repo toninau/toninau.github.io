@@ -27,7 +27,7 @@ export default function PostPage({ params }: PostPageProps) {
         <dl>
           <dt className="sr-only">Published</dt>
           <dd>
-            <DateText date={post.frontMatter.date} />
+            <DateText date={post.frontMatter.published} />
           </dd>
         </dl>
       </header>

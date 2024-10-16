@@ -12,7 +12,8 @@ export type PostId = string & { _brand: 'postId' };
 
 export type FrontMatter = {
   title: string;
-  date: Date;
+  published: Date;
+  modified: Date | null;
   description: string;
 };
 
@@ -37,13 +38,23 @@ export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResul
   const matterResult = matter(fileContent);
 
   const title = matterResult.data.title;
-  const date = parseIsoDateString(matterResult.data.date);
+  const published = parseIsoDateString(matterResult.data.published);
+  const modified = matterResult.data.modified
+    ? parseIsoDateString(matterResult.data.modified)
+    : null;
   const description = matterResult.data.description;
 
-  if (Number.isNaN(date.getTime())) {
+  if (Number.isNaN(published.getTime())) {
     return {
       isValid: false,
-      message: 'Front matter is missing "date" property or "date" is not a valid date.'
+      message: 'Front matter is missing "published" property or "published" is not a valid date.'
+    };
+  }
+
+  if (modified !== null && Number.isNaN(modified.getTime())) {
+    return {
+      isValid: false,
+      message: 'Front matter property "modified" is not a valid date.'
     };
   }
 
@@ -67,7 +78,8 @@ export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResul
       content: matterResult.content,
       frontMatter: {
         title,
-        date,
+        published,
+        modified,
         description
       }
     }
@@ -102,7 +114,7 @@ export function getSortedHomePagePosts(postsDirectory: string): HomePagePost[] {
         frontMatter: postMatterResult.value.frontMatter
       };
     })
-    .sort((a, b) => b.frontMatter.date.getTime() - a.frontMatter.date.getTime());
+    .sort((a, b) => b.frontMatter.published.getTime() - a.frontMatter.published.getTime());
 }
 
 const markdownProcessor = unified()

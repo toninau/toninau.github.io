@@ -10,10 +10,11 @@ import {
 import { vol } from 'memfs';
 import { formatIsoDate } from './dateUtils';
 
-function createPost(frontMatter: Partial<FrontMatter>, content: string) {
+function createPostMarkdown(frontMatter: Partial<FrontMatter>, content: string) {
   const markdownFrontMatter = {
-    date: frontMatter.date ? `'${formatIsoDate(frontMatter.date)}'` : null,
     title: frontMatter.title ? `'${frontMatter.title}'` : null,
+    published: frontMatter.published ? `'${formatIsoDate(frontMatter.published)}'` : null,
+    modified: frontMatter.modified ? `'${formatIsoDate(frontMatter.modified)}'` : null,
     description: frontMatter.description ? `'${frontMatter.description}'` : null
   } satisfies Record<keyof FrontMatter, unknown>;
 
@@ -44,30 +45,60 @@ describe('postUtils', () => {
           content: 'This is content',
           frontMatter: {
             title: 'Front Matter Test',
-            date: new Date(2024, 8, 29),
+            published: new Date(2024, 8, 29),
+            modified: null,
             description: 'Front Matter Description'
           }
         }
       };
-      const post = createPost(validMatter.value.frontMatter, validMatter.value.content);
+      const postMarkdown = createPostMarkdown(
+        validMatter.value.frontMatter,
+        validMatter.value.content
+      );
 
-      expect(parsePostMatter(post)).toEqual(validMatter);
+      expect(parsePostMatter(postMarkdown)).toEqual(validMatter);
     });
 
-    test('matter is invalid when date is missing', () => {
-      const post = createPost({ title: 'test', description: 'test' }, 'This is content');
+    test('matter is invalid when published property is missing', () => {
+      const postMarkdown = createPostMarkdown(
+        { title: 'test', description: 'test' },
+        'This is content'
+      );
 
       const invalidMatter: ParsePostMatterResult = {
         isValid: false,
-        message: 'Front matter is missing "date" property or "date" is not a valid date.'
+        message: 'Front matter is missing "published" property or "published" is not a valid date.'
       };
 
-      expect(parsePostMatter(post)).toEqual(invalidMatter);
+      expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
+    });
+
+    test('matter is invalid when published property is invalid', () => {
+      const postMarkdown = "---\ntitle: 'test'\ndescription: 'test'\npublished: 'AAAA-AA-AA'\n---";
+
+      const invalidMatter: ParsePostMatterResult = {
+        isValid: false,
+        message: 'Front matter is missing "published" property or "published" is not a valid date.'
+      };
+
+      expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
+    });
+
+    test('matter is invalid when modified property is invalid', () => {
+      const postMarkdown =
+        "---\ntitle: 'test'\ndescription: 'test'\npublished: '2020-01-01'\nmodified: 'AAAA-AA-AA'\n---";
+
+      const invalidMatter: ParsePostMatterResult = {
+        isValid: false,
+        message: 'Front matter property "modified" is not a valid date.'
+      };
+
+      expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
     });
 
     test('matter is invalid when title is missing', () => {
-      const post = createPost(
-        { date: new Date(2020, 0, 1), description: 'test' },
+      const postMarkdown = createPostMarkdown(
+        { published: new Date(2020, 0, 1), description: 'test' },
         'This is content'
       );
 
@@ -76,17 +107,20 @@ describe('postUtils', () => {
         message: 'Front matter is missing "title" property or "title" is not a string.'
       };
 
-      expect(parsePostMatter(post)).toEqual(invalidMatter);
+      expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
     });
 
     test('matter is invalid when description is missing', () => {
-      const post = createPost({ date: new Date(2020, 0, 1), title: 'test' }, 'This is content');
+      const postMarkdown = createPostMarkdown(
+        { published: new Date(2020, 0, 1), title: 'test' },
+        'This is content'
+      );
       const invalidMatter: ParsePostMatterResult = {
         isValid: false,
         message: 'Front matter is missing "description" property or "description" is not a string.'
       };
 
-      expect(parsePostMatter(post)).toEqual(invalidMatter);
+      expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
     });
   });
 
@@ -102,8 +136,8 @@ describe('postUtils', () => {
 
       vol.fromJSON(
         {
-          [`./test-post-one.md`]: createPost(frontMatter, 'This is content'),
-          [`./test-post-two.md`]: createPost(frontMatter, 'This is content')
+          [`./test-post-one.md`]: createPostMarkdown(frontMatter, 'This is content'),
+          [`./test-post-two.md`]: createPostMarkdown(frontMatter, 'This is content')
         },
         directory
       );
@@ -121,7 +155,8 @@ describe('postUtils', () => {
       const newerPost = {
         id: 'test-post-two',
         frontMatter: {
-          date: new Date(2020, 0, 2),
+          published: new Date(2020, 0, 2),
+          modified: null,
           description: 'This is a test description',
           title: 'This is a test post'
         }
@@ -130,7 +165,8 @@ describe('postUtils', () => {
       const olderPost = {
         id: 'test-post-one',
         frontMatter: {
-          date: new Date(2020, 0, 1),
+          published: new Date(2020, 0, 1),
+          modified: null,
           description: 'This is a test description',
           title: 'This is a test post'
         }
@@ -138,8 +174,14 @@ describe('postUtils', () => {
 
       vol.fromJSON(
         {
-          [`./${olderPost.id}.md`]: createPost({ ...olderPost.frontMatter }, 'This is content'),
-          [`./${newerPost.id}.md`]: createPost({ ...newerPost.frontMatter }, 'This is content')
+          [`./${olderPost.id}.md`]: createPostMarkdown(
+            { ...olderPost.frontMatter },
+            'This is content'
+          ),
+          [`./${newerPost.id}.md`]: createPostMarkdown(
+            { ...newerPost.frontMatter },
+            'This is content'
+          )
         },
         directory
       );
@@ -148,7 +190,9 @@ describe('postUtils', () => {
 
       expect(post1).toEqual(newerPost);
       expect(post2).toEqual(olderPost);
-      expect(post1.frontMatter.date.getTime() > post2.frontMatter.date.getTime()).toBeTruthy();
+      expect(
+        post1.frontMatter.published.getTime() > post2.frontMatter.published.getTime()
+      ).toBeTruthy();
     });
 
     test('throws PostMatterError when front matter is not valid', () => {
@@ -156,7 +200,7 @@ describe('postUtils', () => {
       const filename = 'super-awesome-blog.md';
       vol.fromJSON(
         {
-          [`./${filename}`]: createPost({}, 'This is content')
+          [`./${filename}`]: createPostMarkdown({}, 'This is content')
         },
         directory
       );

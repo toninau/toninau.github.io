@@ -1,6 +1,6 @@
 ---
 title: 'This is a test post'
-date: '2020-01-01'
+published: '2020-01-01'
 description: 'This is a test description'
 ---
 

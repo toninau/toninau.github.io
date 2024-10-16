@@ -1,4 +1,4 @@
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, assert } from 'vitest';
 import { parseIsoDateString, formatIsoDate, formatClientDate } from './dateUtils';
 
 describe('dateUtils', () => {
@@ -29,6 +29,8 @@ describe('dateUtils', () => {
     expect(formatIsoDate(new Date(2024, 0, 1))).toBe('2024-01-01');
     expect(formatIsoDate(new Date(2024, 11, 31))).toBe('2024-12-31');
     expect(formatIsoDate(new Date(2000, 1, 1))).toBe('2000-02-01');
+
+    assert.throws(() => formatIsoDate(new Date('invalid date')), RangeError, 'Invalid time value');
   });
 
   test('formatClientDate', () => {
