@@ -7,13 +7,14 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}'
   ],
+  darkMode: ['selector'],
   theme: {
     extend: {
       colors: {
         background: 'var(--background)',
         primary: 'var(--primary)',
         secondary: 'var(--secondary)',
-        'button-bg': 'var(--button-bg)',
+        'button-base': 'var(--button-base)',
         'link-icon': 'var(--link-icon)',
         'link-icon-active': 'var(--link-icon-active)'
       },

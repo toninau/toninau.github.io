@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import { Inter, Merriweather } from 'next/font/google';
 import Link from 'next/link';
 
-import { LightModeIcon } from '@/components/icons/LightModeIcon';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import ExternalIconLink from '@/components/ExternalIconLink';
+
+import { ThemeProvider, ThemeSwitcher } from './features/ThemeSwitcher';
 
 import './globals.css';
 
@@ -37,33 +38,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${merriweather.variable} antialiased`}>
-        <div className="flex content-center justify-center p-6">
-          <header className="flex w-full max-w-screen-lg flex-row flex-nowrap items-center justify-between">
-            <Link href={'/'} className="text-2xl font-medium tracking-tighter hover:underline">
-              toninau
-            </Link>
-            <button className="w-fit rounded-full bg-button-bg px-2 py-1 text-secondary">
-              <LightModeIcon />
-            </button>
-            <ul className="flex w-fit gap-x-4 rounded-full px-2 py-1">
-              <li>
-                <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
-                  <LinkedInIcon />
-                </ExternalIconLink>
-              </li>
-              <li>
-                <ExternalIconLink href="https://github.com/toninau" title="GitHub">
-                  <GitHubIcon />
-                </ExternalIconLink>
-              </li>
-            </ul>
-          </header>
-        </div>
-        <div className="flex content-center justify-center p-6">
-          <main className="w-full max-w-screen-lg">{children}</main>
-        </div>
+        <ThemeProvider>
+          <div className="flex content-center justify-center p-6">
+            <header className="flex w-full max-w-screen-lg flex-row flex-nowrap items-center justify-between">
+              <Link href={'/'} className="text-2xl font-medium tracking-tighter hover:underline">
+                toninau
+              </Link>
+              <ThemeSwitcher />
+              <ul className="flex w-fit gap-x-4 rounded-full px-2 py-1">
+                <li>
+                  <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
+                    <LinkedInIcon />
+                  </ExternalIconLink>
+                </li>
+                <li>
+                  <ExternalIconLink href="https://github.com/toninau" title="GitHub">
+                    <GitHubIcon />
+                  </ExternalIconLink>
+                </li>
+              </ul>
+            </header>
+          </div>
+          <div className="flex content-center justify-center p-6">
+            <main className="w-full max-w-screen-lg">{children}</main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
