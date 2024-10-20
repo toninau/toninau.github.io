@@ -1,24 +1,37 @@
 'use client';
 import { ThemeProvider as NextThemesProvider, useTheme } from 'next-themes';
-import { DarkThemeIcon } from '@/components/icons/ThemeIcon';
 import { ReactNode, useRef, useState } from 'react';
-import { SystemThemeIcon, LightThemeIcon } from '@/components/icons/ThemeIcon';
+import { SystemThemeIcon, LightThemeIcon, DarkThemeIcon } from '@/components/icons/ThemeIcon';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [displayMenu, setDisplayMenu] = useState(false);
+  const [isMenuMounted, setIsMenuMounted] = useState(false);
   const themeMenuRef = useRef(null);
 
   const handleThemeClick = (theme: string) => {
-    setMenuOpen(false);
     setTheme(theme);
+    setIsMenuMounted(false);
+  };
+
+  const toggleDisplayMenu = () => {
+    setIsMenuMounted((prevValue) => !prevValue);
+    if (!displayMenu) {
+      setDisplayMenu(true);
+    }
+  };
+
+  const handleAnimationEnd = () => {
+    if (!isMenuMounted) {
+      setDisplayMenu(false);
+    }
   };
 
   return (
-    <div>
+    <div className="relative">
       <button
         className="w-fit rounded-full bg-button-base px-2 py-1 text-secondary"
-        onClick={() => setMenuOpen((prevValue) => !prevValue)}
+        onClick={toggleDisplayMenu}
       >
         <div className="dark:hidden">
           <LightThemeIcon />
@@ -28,13 +41,14 @@ export function ThemeSwitcher() {
         </div>
         <span className="sr-only">Toggle theme</span>
       </button>
-      {menuOpen && (
+      {displayMenu && (
         <nav
-          className="absolute left-0 right-0 m-auto mt-1 w-fit rounded-full bg-button-base p-1"
+          className={`absolute left-1/2 mt-1 w-fit -translate-x-1/2 rounded-full bg-button-base px-2 py-1 ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
+          onAnimationEnd={handleAnimationEnd}
           ref={themeMenuRef}
         >
           <ul className="flex">
-            <li>
+            <li className="p-1">
               <button
                 className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'system' ? 'bg-white/55' : ''}`}
                 onClick={() => handleThemeClick('system')}
@@ -43,7 +57,7 @@ export function ThemeSwitcher() {
                 <span className="sr-only">OS Default</span>
               </button>
             </li>
-            <li>
+            <li className="p-1">
               <button
                 className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'light' ? 'bg-white/55' : ''}`}
                 onClick={() => handleThemeClick('light')}
@@ -52,7 +66,7 @@ export function ThemeSwitcher() {
                 <span className="sr-only">Light</span>
               </button>
             </li>
-            <li>
+            <li className="p-1">
               <button
                 className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'dark' ? 'bg-white/55' : ''}`}
                 onClick={() => handleThemeClick('dark')}

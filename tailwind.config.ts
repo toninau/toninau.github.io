@@ -10,6 +10,32 @@ const config: Config = {
   darkMode: ['selector'],
   theme: {
     extend: {
+      keyframes: {
+        'fade-in': {
+          from: {
+            opacity: '0',
+            visibility: 'hidden'
+          },
+          to: {
+            opacity: '1',
+            visibility: 'visible'
+          }
+        },
+        'fade-out': {
+          from: {
+            opacity: '1',
+            visibility: 'visible'
+          },
+          to: {
+            opacity: '0',
+            visibility: 'hidden'
+          }
+        }
+      },
+      animation: {
+        'fade-in': 'fade-in 250ms ease-in',
+        'fade-out': 'fade-out 250ms ease-out forwards'
+      },
       colors: {
         background: 'var(--background)',
         primary: 'var(--primary)',
