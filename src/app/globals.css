@@ -22,3 +22,16 @@ body {
   background: var(--background);
   font-family: var(--font-inter);
 }
+
+.menu-list::before {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent var(--button-base) transparent;
+}

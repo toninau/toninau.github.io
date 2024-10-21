@@ -1,13 +1,15 @@
 'use client';
+import { ReactNode, useId, useRef, useState } from 'react';
 import { ThemeProvider as NextThemesProvider, useTheme } from 'next-themes';
-import { ReactNode, useRef, useState } from 'react';
-import { SystemThemeIcon, LightThemeIcon, DarkThemeIcon } from '@/components/icons/ThemeIcon';
+import { LightThemeIcon, DarkThemeIcon, SystemThemeIcon } from '@/components/icons/ThemeIcon';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
   const [displayMenu, setDisplayMenu] = useState(false);
   const [isMenuMounted, setIsMenuMounted] = useState(false);
-  const themeMenuRef = useRef(null);
+
+  const menuRef = useRef(null);
+  const menuId = useId();
 
   const handleThemeClick = (theme: string) => {
     setTheme(theme);
@@ -30,8 +32,11 @@ export function ThemeSwitcher() {
   return (
     <div className="relative">
       <button
+        type="button"
         className="w-fit rounded-full bg-button-base px-2 py-1 text-secondary"
         onClick={toggleDisplayMenu}
+        aria-haspopup="menu"
+        aria-controls={menuId}
       >
         <div className="dark:hidden">
           <LightThemeIcon />
@@ -39,44 +44,45 @@ export function ThemeSwitcher() {
         <div className="hidden dark:block">
           <DarkThemeIcon />
         </div>
-        <span className="sr-only">Toggle theme</span>
+        <span className="sr-only">Switch theme</span>
       </button>
       {displayMenu && (
-        <nav
-          className={`absolute left-1/2 mt-1 w-fit -translate-x-1/2 rounded-full bg-button-base px-2 py-1 ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
+        <ul
+          id={menuId}
+          aria-label="Theme options"
+          role="menu"
+          className={`menu-list absolute left-1/2 mt-3 flex w-fit -translate-x-1/2 rounded-full bg-button-base px-2 py-1 ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
           onAnimationEnd={handleAnimationEnd}
-          ref={themeMenuRef}
+          ref={menuRef}
         >
-          <ul className="flex">
-            <li className="p-1">
-              <button
-                className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'system' ? 'bg-white/55' : ''}`}
-                onClick={() => handleThemeClick('system')}
-              >
-                <SystemThemeIcon />
-                <span className="sr-only">OS Default</span>
-              </button>
-            </li>
-            <li className="p-1">
-              <button
-                className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'light' ? 'bg-white/55' : ''}`}
-                onClick={() => handleThemeClick('light')}
-              >
-                <LightThemeIcon />
-                <span className="sr-only">Light</span>
-              </button>
-            </li>
-            <li className="p-1">
-              <button
-                className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'dark' ? 'bg-white/55' : ''}`}
-                onClick={() => handleThemeClick('dark')}
-              >
-                <DarkThemeIcon />
-                <span className="sr-only">Dark</span>
-              </button>
-            </li>
-          </ul>
-        </nav>
+          <li className="p-1">
+            <button
+              className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'system' ? 'bg-white/55' : ''}`}
+              onClick={() => handleThemeClick('system')}
+            >
+              <SystemThemeIcon />
+              <span className="sr-only">OS Default</span>
+            </button>
+          </li>
+          <li className="p-1">
+            <button
+              className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'light' ? 'bg-white/55' : ''}`}
+              onClick={() => handleThemeClick('light')}
+            >
+              <LightThemeIcon />
+              <span className="sr-only">Light</span>
+            </button>
+          </li>
+          <li className="p-1">
+            <button
+              className={`rounded-full bg-button-base px-2 py-1 text-secondary ${theme === 'dark' ? 'bg-white/55' : ''}`}
+              onClick={() => handleThemeClick('dark')}
+            >
+              <DarkThemeIcon />
+              <span className="sr-only">Dark</span>
+            </button>
+          </li>
+        </ul>
       )}
     </div>
   );
