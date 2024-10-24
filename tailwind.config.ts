@@ -48,7 +48,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
-        serif: ['var(--font-merriweather)']
+        serif: ['var(--font-noto-serif)']
       }
     }
   },

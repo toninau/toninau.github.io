@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, Merriweather } from 'next/font/google';
+import { Inter, Noto_Serif } from 'next/font/google';
 import Link from 'next/link';
 
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
@@ -16,12 +16,10 @@ const inter = Inter({
   variable: '--font-inter'
 });
 
-const merriweather = Merriweather({
-  weight: ['400', '700'],
-  style: ['normal', 'italic'],
+const noto_serif = Noto_Serif({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-merriweather'
+  variable: '--font-noto-serif'
 });
 
 export const metadata: Metadata = {
@@ -39,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${merriweather.variable} antialiased`}>
+      <body className={`${inter.variable} ${noto_serif.variable} antialiased`}>
         <ThemeProvider>
           <div className="flex content-center justify-center p-6">
             <header className="flex w-full max-w-screen-lg flex-row flex-nowrap justify-between">
@@ -61,7 +59,7 @@ export default function RootLayout({
               </ul>
             </header>
           </div>
-          <div className="flex content-center justify-center p-6">
+          <div className="flex content-center justify-center px-6">
             <main className="w-full max-w-screen-lg">{children}</main>
           </div>
         </ThemeProvider>
