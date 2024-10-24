@@ -54,7 +54,7 @@ export function ThemeSwitcher() {
       <button
         id={themeButtonId}
         type="button"
-        className="w-fit rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover focus:outline-none focus:ring focus:ring-blue-300 active:bg-button-active"
+        className="hover:bg-button-hover w-fit rounded-full bg-button px-2 py-1 text-secondary active:bg-button-active"
         onClick={toggleDisplayMenu}
         aria-haspopup={true}
         aria-controls={themeMenuId}
@@ -122,7 +122,7 @@ function ThemeButton({ id, onClick, theme }: ThemeButtonProps) {
   return (
     <button
       id={id}
-      className="group rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover focus:outline-none focus:ring focus:ring-blue-300 active:bg-button-active aria-pressed:text-blue-400 aria-pressed:shadow-inner"
+      className="hover:bg-button-hover group rounded-full bg-button px-2 py-1 text-secondary active:bg-button-active aria-pressed:bg-black/5 aria-pressed:shadow-inner"
       type="button"
       onClick={onClick}
       aria-pressed={theme === id}
