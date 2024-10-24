@@ -42,7 +42,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${merriweather.variable} antialiased`}>
         <ThemeProvider>
           <div className="flex content-center justify-center p-6">
-            <header className="flex w-full max-w-screen-lg flex-row flex-nowrap items-center justify-between">
+            <header className="flex w-full max-w-screen-lg flex-row flex-nowrap justify-between">
               <Link href={'/'} className="text-2xl font-medium tracking-tighter hover:underline">
                 toninau
               </Link>

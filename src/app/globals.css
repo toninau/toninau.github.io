@@ -6,7 +6,9 @@
   --background: #fffefc;
   --primary: #100100;
   --secondary: #80663c;
-  --button-base: #fdf4dc;
+  --button: #fdf4dc;
+  --button-hover: #fcefcb;
+  --button-active: #fbe8b6;
   --link-icon: #a88f61;
   --link-icon-active: #766444;
 }
@@ -33,5 +35,5 @@ body {
   margin-left: -10px;
   border-style: solid;
   border-width: 0 10px 10px 10px;
-  border-color: transparent transparent var(--button-base) transparent;
+  border-color: transparent transparent var(--button) transparent;
 }

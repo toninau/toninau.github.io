@@ -47,7 +47,7 @@ export default function HomePage() {
 
 function Tag({ name }: { name: string }) {
   return (
-    <span className="w-fit rounded-full bg-button-base px-2 py-1 text-sm font-semibold text-secondary">
+    <span className="w-fit rounded-full bg-button px-2 py-1 text-sm font-semibold text-secondary">
       {name}
     </span>
   );

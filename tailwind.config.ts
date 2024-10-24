@@ -40,7 +40,9 @@ const config: Config = {
         background: 'var(--background)',
         primary: 'var(--primary)',
         secondary: 'var(--secondary)',
-        'button-base': 'var(--button-base)',
+        button: 'var(--button)',
+        'button-hover': 'var(--button-hover)',
+        'button-active': 'var(--button-active)',
         'link-icon': 'var(--link-icon)',
         'link-icon-active': 'var(--link-icon-active)'
       },
