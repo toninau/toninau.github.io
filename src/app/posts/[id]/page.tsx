@@ -1,4 +1,5 @@
 import DateText from '@/components/DateText';
+import Link from '@/components/Link';
 import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/postUtils';
 
 type PostPageProps = {
@@ -41,9 +42,15 @@ export default function PostPage({ params }: PostPageProps) {
         </dl>
       </header>
       <section
-        className="prose prose-lg min-w-full prose-headings:font-semibold prose-headings:tracking-tighter prose-h2:my-6 prose-p:font-serif prose-p:text-base"
+        className="prose prose-lg my-6 min-w-full break-words prose-headings:font-semibold prose-headings:tracking-tighter prose-h2:my-6 prose-p:font-serif prose-p:text-base"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
+      <footer>
+        <hr className="my-8 h-px border-0 bg-gray-200 dark:bg-gray-700" />
+        <Link href={'/'} className="text-lg font-medium tracking-tighter hover:underline">
+          ← Return to front page
+        </Link>
+      </footer>
     </article>
   );
 }
