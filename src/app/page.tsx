@@ -30,14 +30,14 @@ export default function FrontPage() {
             <footer>
               <dl className="my-1 flex gap-2 text-sm font-semibold text-secondary">
                 <dt className="sr-only">Published</dt>
-                <dd className="">
+                <dd>
                   <DateText date={post.frontMatter.published} />
                 </dd>
                 {post.frontMatter.modified && (
                   <>
                     <span aria-hidden={true}>|</span>
                     <dt className="sr-only">Modified</dt>
-                    <dd className="">
+                    <dd>
                       <DateText date={post.frontMatter.modified} />
                     </dd>
                   </>
