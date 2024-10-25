@@ -1,6 +1,6 @@
 import { getSortedFrontPagePosts, postsDirectory } from '@/lib/postUtils';
 import DateText from '@/components/DateText';
-import PostLink from '@/components/PostLink';
+import Link from '@/components/Link';
 
 export default function FrontPage() {
   const frontPagePosts = getSortedFrontPagePosts(postsDirectory);
@@ -21,11 +21,11 @@ export default function FrontPage() {
         <h2 className="my-6 text-4xl font-semibold tracking-tighter">Posts</h2>
         {frontPagePosts.map((post) => (
           <article className="my-6" key={post.id}>
-            <PostLink href={`/posts/${post.id}`}>
+            <Link href={`/posts/${post.id}`}>
               <h3 className="my-2 text-2xl font-medium tracking-tighter hover:underline">
                 {post.frontMatter.title}
               </h3>
-            </PostLink>
+            </Link>
             <p className="my-1 font-serif">{post.frontMatter.description}</p>
             <footer>
               <dl className="my-1 flex gap-2 text-sm font-semibold text-secondary">

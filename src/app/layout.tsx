@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Noto_Serif } from 'next/font/google';
-import Link from 'next/link';
+import Link from '@/components/Link';
 
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
