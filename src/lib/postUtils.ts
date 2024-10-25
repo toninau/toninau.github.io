@@ -28,7 +28,7 @@ export type Post = {
   id: PostId;
 };
 
-export type HomePagePost = Omit<Post, 'html'>;
+export type FrontPagePost = Omit<Post, 'html'>;
 
 export type ParsePostMatterResult =
   | { isValid: true; value: PostMatter }
@@ -98,7 +98,7 @@ export function getPostIds(postsDirectory: string): { id: PostId }[] {
   }));
 }
 
-export function getSortedHomePagePosts(postsDirectory: string): HomePagePost[] {
+export function getSortedFrontPagePosts(postsDirectory: string): FrontPagePost[] {
   return readdirSync(postsDirectory)
     .map((filename) => {
       const id = parsePostId(filename);

@@ -2,7 +2,7 @@ import { describe, test, expect, vi, beforeEach, assert } from 'vitest';
 import {
   FrontMatter,
   getPostIds,
-  getSortedHomePagePosts,
+  getSortedFrontPagePosts,
   parsePostMatter,
   ParsePostMatterResult,
   PostMatterError
@@ -148,8 +148,8 @@ describe('postUtils', () => {
     });
   });
 
-  describe('getSortedHomePagePosts', () => {
-    test('returns home page posts sorted by date', () => {
+  describe('getSortedFrontPagePosts', () => {
+    test('returns front page posts sorted by date', () => {
       const directory = '/tmp';
 
       const newerPost = {
@@ -186,7 +186,7 @@ describe('postUtils', () => {
         directory
       );
 
-      const [post1, post2] = getSortedHomePagePosts(directory);
+      const [post1, post2] = getSortedFrontPagePosts(directory);
 
       expect(post1).toEqual(newerPost);
       expect(post2).toEqual(olderPost);
@@ -206,7 +206,7 @@ describe('postUtils', () => {
       );
 
       assert.throws(
-        () => getSortedHomePagePosts(directory),
+        () => getSortedFrontPagePosts(directory),
         PostMatterError,
         `Content in ${filename} is invalid.`
       );

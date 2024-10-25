@@ -1,9 +1,9 @@
-import { getSortedHomePagePosts, postsDirectory } from '@/lib/postUtils';
+import { getSortedFrontPagePosts, postsDirectory } from '@/lib/postUtils';
 import DateText from '@/components/DateText';
 import PostLink from '@/components/PostLink';
 
-export default function HomePage() {
-  const postsFrontMatter = getSortedHomePagePosts(postsDirectory);
+export default function FrontPage() {
+  const frontPagePosts = getSortedFrontPagePosts(postsDirectory);
 
   return (
     <>
@@ -19,17 +19,31 @@ export default function HomePage() {
       </article>
       <article>
         <h2 className="my-6 text-4xl font-semibold tracking-tighter">Posts</h2>
-        {postsFrontMatter.map((frontMatter) => (
-          <article className="my-6" key={frontMatter.id}>
-            <PostLink href={`/posts/${frontMatter.id}`}>
+        {frontPagePosts.map((post) => (
+          <article className="my-6" key={post.id}>
+            <PostLink href={`/posts/${post.id}`}>
               <h3 className="my-2 text-2xl font-medium tracking-tighter hover:underline">
-                {frontMatter.frontMatter.title}
+                {post.frontMatter.title}
               </h3>
             </PostLink>
-            <p className="my-1 font-serif">{frontMatter.frontMatter.description}</p>
-            <p className="my-1 text-sm font-semibold text-secondary">
-              <DateText date={frontMatter.frontMatter.published} />
-            </p>
+            <p className="my-1 font-serif">{post.frontMatter.description}</p>
+            <footer>
+              <dl className="my-1 flex gap-2 text-sm font-semibold text-secondary">
+                <dt className="sr-only">Published</dt>
+                <dd className="">
+                  <DateText date={post.frontMatter.published} />
+                </dd>
+                {post.frontMatter.modified && (
+                  <>
+                    <span aria-hidden={true}>|</span>
+                    <dt className="sr-only">Modified</dt>
+                    <dd className="">
+                      <DateText date={post.frontMatter.modified} />
+                    </dd>
+                  </>
+                )}
+              </dl>
+            </footer>
           </article>
         ))}
       </article>
