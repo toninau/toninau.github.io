@@ -71,7 +71,7 @@ export function ThemeSwitcher() {
       {isMenuDisplayed && (
         <ul
           id={themeMenuId}
-          className={`menu-list absolute left-1/2 mt-4 flex w-fit -translate-x-1/2 rounded-full bg-button p-1 shadow-md ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
+          className={`menu-list absolute left-1/2 mt-4 flex w-fit -translate-x-1/2 rounded-full bg-button p-1 ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
           onAnimationEnd={handleAnimationEnd}
           ref={themeMenuRef}
           aria-labelledby={themeButtonId}
