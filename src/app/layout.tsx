@@ -39,8 +39,8 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${noto_serif.variable} antialiased`}>
         <ThemeProvider>
-          <div className="flex content-center justify-center p-6">
-            <header className="flex w-full max-w-screen-lg flex-row flex-nowrap justify-between">
+          <div className="mb-6 flex content-center justify-center p-6">
+            <header className="flex w-full max-w-screen-sm flex-row flex-nowrap justify-between">
               <Link href={'/'} className="text-2xl font-medium tracking-tighter hover:underline">
                 toninau
               </Link>
@@ -60,7 +60,7 @@ export default function RootLayout({
             </header>
           </div>
           <div className="flex content-center justify-center px-6">
-            <main className="w-full max-w-screen-lg">{children}</main>
+            <main className="w-full max-w-screen-sm">{children}</main>
           </div>
         </ThemeProvider>
       </body>
