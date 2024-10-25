@@ -21,7 +21,7 @@ export default function PostPage({ params }: PostPageProps) {
   const post = getPost(postsDirectory, params.id);
 
   return (
-    <article>
+    <article className="my-6">
       <header className="my-6">
         <h1 className="my-2 text-4xl font-semibold tracking-tighter">{post.frontMatter.title}</h1>
         <dl className="my-1 flex gap-2 text-sm font-semibold text-secondary">
