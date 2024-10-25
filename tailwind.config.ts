@@ -10,6 +10,9 @@ const config: Config = {
   darkMode: ['selector'],
   theme: {
     extend: {
+      boxShadow: {
+        'button-pressed': 'inset 3px 3px 6px #e6dec8, inset -3px -3px 6px #fffff0'
+      },
       keyframes: {
         'fade-in': {
           from: {

@@ -54,7 +54,7 @@ export function ThemeSwitcher() {
       <button
         id={themeButtonId}
         type="button"
-        className="w-fit rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover active:bg-button-active"
+        className="w-fit rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover focus:bg-button-active focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-button-active active:bg-button-active"
         onClick={toggleDisplayMenu}
         aria-haspopup={true}
         aria-controls={themeMenuId}
@@ -71,7 +71,7 @@ export function ThemeSwitcher() {
       {isMenuDisplayed && (
         <ul
           id={themeMenuId}
-          className={`menu-list absolute left-1/2 mt-3 flex w-fit -translate-x-1/2 rounded-full bg-button p-1 shadow-md ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
+          className={`menu-list absolute left-1/2 mt-4 flex w-fit -translate-x-1/2 rounded-full bg-button p-1 shadow-md ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
           onAnimationEnd={handleAnimationEnd}
           ref={themeMenuRef}
           aria-labelledby={themeButtonId}
@@ -122,7 +122,7 @@ function ThemeButton({ id, onClick, theme }: ThemeButtonProps) {
   return (
     <button
       id={id}
-      className="group rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover active:bg-button-active aria-pressed:bg-black/5 aria-pressed:shadow-inner"
+      className="group rounded-full bg-button px-2 py-1 text-secondary focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-button-active aria-pressed:shadow-button-pressed aria-[pressed=false]:hover:bg-button-hover aria-[pressed=false]:focus:bg-button-active aria-[pressed=false]:active:bg-button-active"
       type="button"
       onClick={onClick}
       aria-pressed={theme === id}
