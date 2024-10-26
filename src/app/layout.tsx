@@ -41,7 +41,10 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="mb-6 flex content-center justify-center p-6">
             <header className="flex w-full max-w-screen-sm flex-row flex-nowrap justify-between">
-              <Link href={'/'} className="text-2xl font-medium tracking-tighter hover:underline">
+              <Link
+                href={'/'}
+                className="text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
+              >
                 toninau
               </Link>
               <ThemeSwitcher />

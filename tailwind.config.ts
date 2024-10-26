@@ -41,7 +41,6 @@ const config: Config = {
       },
       colors: {
         background: 'var(--background)',
-        primary: 'var(--primary)',
         secondary: 'var(--secondary)',
         button: 'var(--button)',
         'button-hover': 'var(--button-hover)',

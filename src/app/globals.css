@@ -4,7 +4,6 @@
 
 :root {
   --background: #fffefc;
-  --primary: #100100;
   --secondary: #80663c;
   --button: #fdf4dc;
   --button-hover: #fcefcb;
@@ -15,12 +14,10 @@
 
 .dark {
   --background: #0a0a0a;
-  --primary: #ededed;
   --secondary: #80663c;
 }
 
 body {
-  color: var(--primary);
   background: var(--background);
   font-family: var(--font-inter);
 }

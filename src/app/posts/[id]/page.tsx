@@ -1,4 +1,5 @@
 import DateText from '@/components/DateText';
+import { BackIcon } from '@/components/icons/BackIcon';
 import Link from '@/components/Link';
 import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/postUtils';
 
@@ -24,7 +25,9 @@ export default function PostPage({ params }: PostPageProps) {
   return (
     <article className="my-6">
       <header className="my-6">
-        <h1 className="my-2 text-4xl font-semibold tracking-tighter">{post.frontMatter.title}</h1>
+        <h1 className="my-2 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
+          {post.frontMatter.title}
+        </h1>
         <dl className="my-1 flex gap-2 text-sm font-semibold text-secondary">
           <dt className="sr-only">Published</dt>
           <dd>
@@ -42,13 +45,16 @@ export default function PostPage({ params }: PostPageProps) {
         </dl>
       </header>
       <section
-        className="prose-md prose my-6 min-w-full break-words prose-headings:font-semibold prose-headings:tracking-tighter prose-h2:my-6 prose-p:font-serif"
+        className="prose-md prose prose-stone my-6 min-w-full break-words dark:prose-invert prose-headings:my-6 prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
       <footer>
-        <hr className="my-8 h-px border-0 bg-gray-200 dark:bg-gray-700" />
-        <Link href={'/'} className="text-lg font-medium tracking-tighter hover:underline">
-          ← Return to front page
+        <hr className="my-8 h-[2px] border-0 bg-gray-200 dark:bg-gray-700" />
+        <Link
+          href={'/'}
+          className="inline-flex items-start gap-2 text-lg font-medium tracking-tighter text-link-icon hover:text-link-icon-active hover:underline"
+        >
+          <BackIcon /> Return to front page
         </Link>
       </footer>
     </article>
