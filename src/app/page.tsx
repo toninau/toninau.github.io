@@ -9,7 +9,7 @@ export default function FrontPage() {
     <>
       <h1 className="sr-only">toninau&apos;s Dev Blog</h1>
       <article>
-        <h2 className="my-6 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
+        <h2 className="mb-8 mt-6 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
           About
         </h2>
         <p className="font-serif text-stone-700 dark:text-stone-300">
@@ -20,7 +20,7 @@ export default function FrontPage() {
         </p>
       </article>
       <article>
-        <h2 className="my-6 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
+        <h2 className="mb-8 mt-12 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
           Posts
         </h2>
         {frontPagePosts.map((post) => (
