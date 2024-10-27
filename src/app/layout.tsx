@@ -5,8 +5,7 @@ import Link from '@/components/Link';
 import { GitHubIcon } from '@/components/icons/GitHubIcon';
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
 import ExternalIconLink from '@/components/ExternalIconLink';
-
-import { ThemeProvider, ThemeSwitcher } from './features/ThemeSwitcher';
+import { ThemeProvider, ThemeSwitcher } from '@/components/ThemeSwitcher';
 
 import './globals.css';
 
