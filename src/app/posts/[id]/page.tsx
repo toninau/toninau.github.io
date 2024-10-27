@@ -48,11 +48,10 @@ export default function PostPage({ params }: PostPageProps) {
         className="prose-md prose prose-stone my-6 min-w-full break-words dark:prose-invert prose-headings:my-6 prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
-      <footer>
-        <hr className="my-8 h-[2px] border-0 bg-gray-200 dark:bg-gray-700" />
+      <footer className="my-8 border-t-2 border-stone-200 pt-8 dark:border-stone-700">
         <Link
           href={'/'}
-          className="inline-flex items-start gap-2 text-lg font-medium tracking-tighter text-link-icon hover:text-link-icon-active hover:underline"
+          className="inline-flex items-center gap-2 rounded-lg bg-button p-2 text-base font-medium tracking-tighter text-secondary hover:bg-button-hover active:bg-button-active"
         >
           <BackIcon /> Return to front page
         </Link>
