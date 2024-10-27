@@ -23,12 +23,12 @@ export default function PostPage({ params }: PostPageProps) {
   const post = getPost(postsDirectory, params.id);
 
   return (
-    <article className="my-6">
-      <header className="my-6">
+    <article>
+      <header className="mb-8 mt-6">
         <h1 className="my-2 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
           {post.frontMatter.title}
         </h1>
-        <dl className="my-1 flex gap-2 text-sm font-semibold text-secondary">
+        <dl className="my-1 flex gap-2 text-sm font-normal text-secondary">
           <dt className="sr-only">Published</dt>
           <dd>
             <DateText date={post.frontMatter.published} />
@@ -45,7 +45,7 @@ export default function PostPage({ params }: PostPageProps) {
         </dl>
       </header>
       <section
-        className="prose-md prose prose-stone my-6 min-w-full break-words dark:prose-invert prose-headings:my-6 prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif"
+        className="prose-md prose prose-stone my-6 min-w-full break-words dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
       <footer className="my-8 border-t-2 border-stone-200 pt-8 dark:border-stone-700">

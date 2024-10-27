@@ -34,7 +34,7 @@ export default function FrontPage() {
               {post.frontMatter.description}
             </p>
             <footer>
-              <dl className="my-1 flex gap-2 text-sm font-semibold text-secondary">
+              <dl className="my-1 flex gap-2 text-sm font-normal text-secondary">
                 <dt className="sr-only">Published</dt>
                 <dd>
                   <DateText date={post.frontMatter.published} />
