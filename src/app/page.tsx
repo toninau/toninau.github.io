@@ -25,11 +25,11 @@ export default function FrontPage() {
         </h2>
         {frontPagePosts.map((post) => (
           <article className="my-6" key={post.id}>
-            <Link href={`/posts/${post.id}`}>
-              <h3 className="my-2 text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white">
+            <h3 className="my-2 text-2xl font-medium tracking-tighter text-stone-900 dark:text-white">
+              <Link className="hover:underline" href={`/posts/${post.id}`}>
                 {post.frontMatter.title}
-              </h3>
-            </Link>
+              </Link>
+            </h3>
             <p className="my-1 font-serif text-stone-700 dark:text-stone-300">
               {post.frontMatter.description}
             </p>
