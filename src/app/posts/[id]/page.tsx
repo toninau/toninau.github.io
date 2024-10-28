@@ -45,7 +45,7 @@ export default function PostPage({ params }: PostPageProps) {
         </dl>
       </header>
       <section
-        className="prose-md prose prose-stone my-6 min-w-full break-words dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif"
+        className="prose prose-stone break-words dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
       <footer className="my-8 border-t-2 border-stone-200 pt-8 dark:border-stone-700">
