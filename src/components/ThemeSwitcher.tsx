@@ -16,7 +16,6 @@ export function ThemeSwitcher() {
   const [isMenuMounted, setIsMenuMounted] = useState(false);
 
   const themeMenuRef = useRef<HTMLUListElement | null>(null);
-  const themeMenuId = useId();
   const themeButtonId = useId();
 
   useEffect(() => {
@@ -56,8 +55,7 @@ export function ThemeSwitcher() {
         type="button"
         className="w-fit rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover active:bg-button-active"
         onClick={toggleDisplayMenu}
-        aria-haspopup={true}
-        aria-controls={themeMenuId}
+        aria-haspopup="dialog"
         aria-expanded={isMenuDisplayed}
       >
         <span className="dark:hidden">
@@ -69,24 +67,23 @@ export function ThemeSwitcher() {
         <span className="sr-only">Theme options</span>
       </button>
       {isMenuDisplayed && (
-        <ul
-          id={themeMenuId}
-          className={`menu-list absolute left-1/2 mt-4 flex w-fit -translate-x-1/2 rounded-full bg-button p-1 ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
-          onAnimationEnd={handleAnimationEnd}
-          ref={themeMenuRef}
-          aria-labelledby={themeButtonId}
-          role="dialog"
-        >
-          <li className="flex items-center justify-center p-1">
-            <ThemeButton id="system" onClick={handleThemeClick} theme={theme} />
-          </li>
-          <li className="flex items-center justify-center p-1">
-            <ThemeButton id="light" onClick={handleThemeClick} theme={theme} />
-          </li>
-          <li className="flex items-center justify-center p-1">
-            <ThemeButton id="dark" onClick={handleThemeClick} theme={theme} />
-          </li>
-        </ul>
+        <div aria-labelledby={themeButtonId} role="dialog">
+          <ul
+            className={`menu-list absolute left-1/2 mt-4 flex w-fit -translate-x-1/2 rounded-full bg-button p-1 ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
+            onAnimationEnd={handleAnimationEnd}
+            ref={themeMenuRef}
+          >
+            <li className="flex items-center justify-center p-1">
+              <ThemeButton id="system" onClick={handleThemeClick} theme={theme} />
+            </li>
+            <li className="flex items-center justify-center p-1">
+              <ThemeButton id="light" onClick={handleThemeClick} theme={theme} />
+            </li>
+            <li className="flex items-center justify-center p-1">
+              <ThemeButton id="dark" onClick={handleThemeClick} theme={theme} />
+            </li>
+          </ul>
+        </div>
       )}
     </div>
   );
