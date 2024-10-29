@@ -28,18 +28,24 @@ export default function PostPage({ params }: PostPageProps) {
         <h1 className="my-2 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
           {post.frontMatter.title}
         </h1>
-        <dl className="my-1 flex gap-2 text-sm font-normal text-secondary">
-          <dt className="sr-only">Published</dt>
-          <dd>
-            <DateText date={post.frontMatter.published} />
-          </dd>
+        <dl className="my-1 flex items-center gap-2 text-sm font-normal text-secondary max-[300px]:max-w-min">
+          <div>
+            <dt className="sr-only">Published</dt>
+            <dd>
+              <DateText date={post.frontMatter.published} />
+            </dd>
+          </div>
           {post.frontMatter.modified && (
             <>
-              <span aria-hidden={true}>|</span>
-              <dt className="sr-only">Modified</dt>
-              <dd>
-                <DateText date={post.frontMatter.modified} />
-              </dd>
+              <div>
+                <span aria-hidden={true}>•</span>
+              </div>
+              <div className="flex gap-1">
+                <dt className="max-[360px]:sr-only">Updated</dt>
+                <dd>
+                  <DateText date={post.frontMatter.modified} />
+                </dd>
+              </div>
             </>
           )}
         </dl>

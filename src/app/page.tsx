@@ -34,18 +34,24 @@ export default function FrontPage() {
               {post.frontMatter.description}
             </p>
             <footer>
-              <dl className="my-1 flex gap-2 text-sm font-normal text-secondary">
-                <dt className="sr-only">Published</dt>
-                <dd>
-                  <DateText date={post.frontMatter.published} />
-                </dd>
+              <dl className="my-1 flex items-center gap-2 text-sm font-normal text-secondary max-[300px]:max-w-min">
+                <div>
+                  <dt className="sr-only">Published</dt>
+                  <dd>
+                    <DateText date={post.frontMatter.published} />
+                  </dd>
+                </div>
                 {post.frontMatter.modified && (
                   <>
-                    <span aria-hidden={true}>|</span>
-                    <dt className="sr-only">Modified</dt>
-                    <dd>
-                      <DateText date={post.frontMatter.modified} />
-                    </dd>
+                    <div>
+                      <span aria-hidden={true}>•</span>
+                    </div>
+                    <div>
+                      <dt className="sr-only">Updated</dt>
+                      <dd>
+                        <DateText date={post.frontMatter.modified} />
+                      </dd>
+                    </div>
                   </>
                 )}
               </dl>
