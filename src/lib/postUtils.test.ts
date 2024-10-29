@@ -14,7 +14,7 @@ function createPostMarkdown(frontMatter: Partial<FrontMatter>, content: string) 
   const markdownFrontMatter = {
     title: frontMatter.title ? `'${frontMatter.title}'` : null,
     published: frontMatter.published ? `'${formatIsoDate(frontMatter.published)}'` : null,
-    modified: frontMatter.modified ? `'${formatIsoDate(frontMatter.modified)}'` : null,
+    updated: frontMatter.updated ? `'${formatIsoDate(frontMatter.updated)}'` : null,
     description: frontMatter.description ? `'${frontMatter.description}'` : null
   } satisfies Record<keyof FrontMatter, unknown>;
 
@@ -46,7 +46,7 @@ describe('postUtils', () => {
           frontMatter: {
             title: 'Front Matter Test',
             published: new Date(2024, 8, 29),
-            modified: null,
+            updated: null,
             description: 'Front Matter Description'
           }
         }
@@ -84,13 +84,13 @@ describe('postUtils', () => {
       expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
     });
 
-    test('matter is invalid when modified property is invalid', () => {
+    test('matter is invalid when updated property is invalid', () => {
       const postMarkdown =
-        "---\ntitle: 'test'\ndescription: 'test'\npublished: '2020-01-01'\nmodified: 'AAAA-AA-AA'\n---";
+        "---\ntitle: 'test'\ndescription: 'test'\npublished: '2020-01-01'\nupdated: 'AAAA-AA-AA'\n---";
 
       const invalidMatter: ParsePostMatterResult = {
         isValid: false,
-        message: 'Front matter property "modified" is not a valid date.'
+        message: 'Front matter property "updated" is not a valid date.'
       };
 
       expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
@@ -156,7 +156,7 @@ describe('postUtils', () => {
         id: 'test-post-two',
         frontMatter: {
           published: new Date(2020, 0, 2),
-          modified: null,
+          updated: null,
           description: 'This is a test description',
           title: 'This is a test post'
         }
@@ -166,7 +166,7 @@ describe('postUtils', () => {
         id: 'test-post-one',
         frontMatter: {
           published: new Date(2020, 0, 1),
-          modified: null,
+          updated: null,
           description: 'This is a test description',
           title: 'This is a test post'
         }

@@ -13,7 +13,7 @@ export type PostId = string & { _brand: 'postId' };
 export type FrontMatter = {
   title: string;
   published: Date;
-  modified: Date | null;
+  updated: Date | null;
   description: string;
 };
 
@@ -39,9 +39,7 @@ export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResul
 
   const title = matterResult.data.title;
   const published = parseIsoDateString(matterResult.data.published);
-  const modified = matterResult.data.modified
-    ? parseIsoDateString(matterResult.data.modified)
-    : null;
+  const updated = matterResult.data.updated ? parseIsoDateString(matterResult.data.updated) : null;
   const description = matterResult.data.description;
 
   if (Number.isNaN(published.getTime())) {
@@ -51,10 +49,10 @@ export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResul
     };
   }
 
-  if (modified !== null && Number.isNaN(modified.getTime())) {
+  if (updated !== null && Number.isNaN(updated.getTime())) {
     return {
       isValid: false,
-      message: 'Front matter property "modified" is not a valid date.'
+      message: 'Front matter property "updated" is not a valid date.'
     };
   }
 
@@ -79,7 +77,7 @@ export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResul
       frontMatter: {
         title,
         published,
-        modified,
+        updated,
         description
       }
     }

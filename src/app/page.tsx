@@ -41,7 +41,7 @@ export default function FrontPage() {
                     <DateText date={post.frontMatter.published} />
                   </dd>
                 </div>
-                {post.frontMatter.modified && (
+                {post.frontMatter.updated && (
                   <>
                     <div>
                       <span aria-hidden={true}>•</span>
@@ -49,7 +49,7 @@ export default function FrontPage() {
                     <div>
                       <dt className="sr-only">Updated</dt>
                       <dd>
-                        <DateText date={post.frontMatter.modified} />
+                        <DateText date={post.frontMatter.updated} />
                       </dd>
                     </div>
                   </>

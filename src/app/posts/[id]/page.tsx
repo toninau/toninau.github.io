@@ -35,7 +35,7 @@ export default function PostPage({ params }: PostPageProps) {
               <DateText date={post.frontMatter.published} />
             </dd>
           </div>
-          {post.frontMatter.modified && (
+          {post.frontMatter.updated && (
             <>
               <div>
                 <span aria-hidden={true}>•</span>
@@ -43,7 +43,7 @@ export default function PostPage({ params }: PostPageProps) {
               <div className="flex gap-1">
                 <dt className="max-[360px]:sr-only">Updated</dt>
                 <dd>
-                  <DateText date={post.frontMatter.modified} />
+                  <DateText date={post.frontMatter.updated} />
                 </dd>
               </div>
             </>
