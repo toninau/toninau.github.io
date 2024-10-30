@@ -1,14 +1,9 @@
 'use client';
 import React, { MouseEventHandler, ReactNode, useEffect, useId, useRef, useState } from 'react';
 import { ThemeProvider as NextThemesProvider, useTheme } from 'next-themes';
-import {
-  LightThemeIcon,
-  DarkThemeIcon,
-  DarkThemeSolidIcon,
-  SystemThemeIcon,
-  SystemThemeSolidIcon,
-  LightThemeSolidIcon
-} from '@/components/icons/ThemeIcon';
+import { LightTheme, LightThemeSolid } from './icons/LightTheme';
+import { DarkTheme, DarkThemeSolid } from './icons/DarkTheme';
+import { DefaultTheme, DefaultThemeSolid } from './icons/DefaultTheme';
 
 export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
@@ -59,10 +54,10 @@ export function ThemeSwitcher() {
         aria-expanded={isMenuDisplayed}
       >
         <span className="dark:hidden">
-          <LightThemeIcon />
+          <LightTheme />
         </span>
         <span className="hidden dark:inline">
-          <DarkThemeIcon />
+          <DarkTheme />
         </span>
         <span className="sr-only">Theme options</span>
       </button>
@@ -99,18 +94,18 @@ type ThemeButtonProps = {
 
 const themeButtonById = {
   system: {
-    icon: <SystemThemeIcon />,
-    solidIcon: <SystemThemeSolidIcon />,
+    icon: <DefaultTheme />,
+    solidIcon: <DefaultThemeSolid />,
     label: 'OS Default'
   },
   light: {
-    icon: <LightThemeIcon />,
-    solidIcon: <LightThemeSolidIcon />,
+    icon: <LightTheme />,
+    solidIcon: <LightThemeSolid />,
     label: 'Light'
   },
   dark: {
-    icon: <DarkThemeIcon />,
-    solidIcon: <DarkThemeSolidIcon />,
+    icon: <DarkTheme />,
+    solidIcon: <DarkThemeSolid />,
     label: 'Dark'
   }
 };

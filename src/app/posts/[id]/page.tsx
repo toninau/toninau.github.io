@@ -1,5 +1,5 @@
 import DateText from '@/components/DateText';
-import { BackIcon } from '@/components/icons/BackIcon';
+import ArrowReturnLeft from '@/components/icons/ArrowReturnLeft';
 import Link from '@/components/Link';
 import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/postUtils';
 
@@ -59,7 +59,7 @@ export default function PostPage({ params }: PostPageProps) {
           href={'/'}
           className="inline-flex items-center gap-2 rounded-lg bg-button p-2 text-base font-medium tracking-tighter text-secondary hover:bg-button-hover active:bg-button-active"
         >
-          <BackIcon /> Return to front page
+          <ArrowReturnLeft /> Return to front page
         </Link>
       </footer>
     </article>

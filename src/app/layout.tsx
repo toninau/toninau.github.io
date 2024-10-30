@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { Inter, Noto_Serif } from 'next/font/google';
 import Link from '@/components/Link';
 
-import { GitHubIcon } from '@/components/icons/GitHubIcon';
-import { LinkedInIcon } from '@/components/icons/LinkedInIcon';
+import GitHub from '@/components/icons/GitHub';
+import LinkedIn from '@/components/icons/LinkedIn';
 import ExternalIconLink from '@/components/ExternalIconLink';
 import { ThemeProvider, ThemeSwitcher } from '@/components/ThemeSwitcher';
 
@@ -50,12 +50,12 @@ export default function RootLayout({
               <ul className="flex w-fit gap-x-4 rounded-full px-2 py-1">
                 <li>
                   <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
-                    <LinkedInIcon />
+                    <LinkedIn />
                   </ExternalIconLink>
                 </li>
                 <li>
                   <ExternalIconLink href="https://github.com/toninau" title="GitHub">
-                    <GitHubIcon />
+                    <GitHub />
                   </ExternalIconLink>
                 </li>
               </ul>

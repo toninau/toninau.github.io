@@ -1,4 +1,4 @@
-export function LinkedInIcon() {
+export default function LinkedIn() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
