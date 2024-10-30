@@ -27,7 +27,7 @@ export default function FrontPage() {
           <article className="my-6" key={post.id}>
             <h3 className="my-2 text-2xl font-medium tracking-tighter text-stone-900 dark:text-white">
               <Link className="hover:underline" href={`/posts/${post.id}`}>
-                {post.frontMatter.title}
+                {post.frontMatter.title} <ArrowRight />
               </Link>
             </h3>
             <p className="my-1 font-serif text-stone-700 dark:text-stone-300">
@@ -60,5 +60,23 @@ export default function FrontPage() {
         ))}
       </article>
     </>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 20 20"
+      fill="currentColor"
+      className="inline size-5"
+      aria-hidden="true"
+    >
+      <path
+        fillRule="evenodd"
+        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+        clipRule="evenodd"
+      />
+    </svg>
   );
 }
