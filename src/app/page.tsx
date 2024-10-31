@@ -27,8 +27,12 @@ export default function FrontPage() {
         {frontPagePosts.map((post) => (
           <article className="my-6" key={post.id}>
             <h3 className="my-2 text-2xl font-medium tracking-tighter text-stone-900 dark:text-white">
-              <Link className="hover:underline" href={`/posts/${post.id}`}>
-                {post.frontMatter.title} <ArrowRight inline={true} />
+              <Link className="group hover:underline" href={`/posts/${post.id}`}>
+                {post.frontMatter.title}
+                <span aria-hidden={true} className="inline whitespace-nowrap">
+                  &nbsp;
+                  <ArrowRight className="inline-block size-5 transition ease-in-out group-hover:translate-x-1" />
+                </span>
               </Link>
             </h3>
             <p className="my-1 font-serif text-stone-700 dark:text-stone-300">

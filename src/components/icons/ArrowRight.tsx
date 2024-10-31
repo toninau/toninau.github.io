@@ -1,10 +1,10 @@
-export default function ArrowRight({ inline = false }: { inline?: boolean }) {
+export default function ArrowRight({ className = 'size-5' }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 20 20"
       fill="currentColor"
-      className={`size-5 ${inline ? 'inline' : ''}`}
+      className={className}
       aria-hidden="true"
     >
       <path
