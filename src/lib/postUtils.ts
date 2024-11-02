@@ -6,6 +6,7 @@ import { parseIsoDateString } from './dateUtils';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
+import remarkGfm from 'remark-gfm';
 import { unified } from 'unified';
 
 export type PostId = string & { _brand: 'postId' };
@@ -117,6 +118,7 @@ export function getSortedFrontPagePosts(postsDirectory: string): FrontPagePost[]
 
 const markdownProcessor = unified()
   .use(remarkParse)
+  .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: false })
   .use(rehypeStringify);
 
