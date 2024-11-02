@@ -1,8 +1,10 @@
 import { describe, test, expect, vi, beforeEach, assert } from 'vitest';
 import {
   FrontMatter,
+  getPost,
   getPostIds,
   getSortedFrontPagePosts,
+  parsePostId,
   parsePostMatter,
   ParsePostMatterResult,
   PostMatterError
@@ -127,17 +129,10 @@ describe('postUtils', () => {
   describe('getPostIds', () => {
     test('returns post ids', () => {
       const directory = '/tmp';
-
-      const frontMatter = {
-        date: new Date(2020, 0, 1),
-        description: 'This is a test description',
-        title: 'This is a test post'
-      };
-
       vol.fromJSON(
         {
-          [`./test-post-one.md`]: createPostMarkdown(frontMatter, 'This is content'),
-          [`./test-post-two.md`]: createPostMarkdown(frontMatter, 'This is content')
+          [`./test-post-one.md`]: 'This is content',
+          [`./test-post-two.md`]: 'This is content'
         },
         directory
       );
@@ -210,6 +205,46 @@ describe('postUtils', () => {
         PostMatterError,
         `Content in ${filename} is invalid.`
       );
+    });
+  });
+
+  describe('getPost', () => {
+    test('returns post matter and html content', async () => {
+      const directory = '/tmp';
+      const filename = 'super-awesome-blog.md';
+      const frontMatter = {
+        published: new Date(2020, 0, 1),
+        description: 'This is a test description',
+        title: 'This is a test post',
+        updated: new Date(2021, 2, 2)
+      };
+      const content = 'This is content';
+      vol.fromJSON(
+        {
+          [`./${filename}`]: createPostMarkdown(frontMatter, content)
+        },
+        directory
+      );
+
+      const post = await getPost(directory, parsePostId(filename));
+
+      expect(post.frontMatter).toEqual(frontMatter);
+      expect(post.html).toBe('<p>This is content</p>');
+    });
+
+    test('throws PostMatterError when front matter is not valid', () => {
+      const directory = '/tmp';
+      const filename = 'super-awesome-blog.md';
+      vol.fromJSON(
+        {
+          [`./${filename}`]: createPostMarkdown({}, 'This is content')
+        },
+        directory
+      );
+
+      expect(async () => {
+        await getPost(directory, parsePostId(filename));
+      }).rejects.toThrow(`Content in ${filename} is invalid.`);
     });
   });
 });

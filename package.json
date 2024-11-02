@@ -12,6 +12,7 @@
     "build": "next build",
     "lint": "next lint --no-cache",
     "test": "vitest",
+    "test:coverage": "vitest run --coverage",
     "prettier:check": "prettier . --check",
     "prettier:write": "prettier . --write",
     "tsc:check": "tsc --noEmit"
