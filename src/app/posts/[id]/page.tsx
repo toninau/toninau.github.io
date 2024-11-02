@@ -12,15 +12,15 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
-  const post = getPost(postsDirectory, params.id);
+  const post = await getPost(postsDirectory, params.id);
   return {
     title: post?.frontMatter.title,
     description: post?.frontMatter.description
   };
 }
 
-export default function PostPage({ params }: PostPageProps) {
-  const post = getPost(postsDirectory, params.id);
+export default async function PostPage({ params }: PostPageProps) {
+  const post = await getPost(postsDirectory, params.id);
 
   return (
     <article>

@@ -12,6 +12,8 @@ Some text
 
 Some more text
 
-```js
-console.log('foo')
+```ts
+const options = {
+  theme: "one-dark-pro",
+};
 ```

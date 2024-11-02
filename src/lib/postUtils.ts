@@ -10,6 +10,7 @@ import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
 import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrettyCode from 'rehype-pretty-code';
 
 import { parseIsoDateString } from './dateUtils';
 
@@ -124,14 +125,17 @@ const markdownProcessor = unified()
   .use(remarkParse)
   .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: false })
-  .use(rehypeStringify)
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, {
     behavior: 'wrap',
     properties: { className: 'heading-link' }
-  });
+  })
+  .use(rehypePrettyCode, {
+    theme: 'everforest-dark'
+  })
+  .use(rehypeStringify);
 
-export function getPost(postsDirectory: string, id: Post['id']): Post {
+export async function getPost(postsDirectory: string, id: Post['id']): Promise<Post> {
   const filename = `${id}.md`;
   const fileContent = readFileSync(join(postsDirectory, filename));
   const postMatterResult = parsePostMatter(fileContent);
@@ -140,7 +144,7 @@ export function getPost(postsDirectory: string, id: Post['id']): Post {
     throw new PostMatterError(filename, postMatterResult.message);
   }
 
-  const html = String(markdownProcessor.processSync(postMatterResult.value.content));
+  const html = String(await markdownProcessor.process(postMatterResult.value.content));
 
   return {
     ...postMatterResult.value,
