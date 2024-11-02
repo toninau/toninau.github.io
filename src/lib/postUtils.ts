@@ -1,13 +1,17 @@
-import matter from 'gray-matter';
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { cwd } from 'node:process';
-import { parseIsoDateString } from './dateUtils';
+
+import matter from 'gray-matter';
+import { unified } from 'unified';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
 import remarkGfm from 'remark-gfm';
-import { unified } from 'unified';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+
+import { parseIsoDateString } from './dateUtils';
 
 export type PostId = string & { _brand: 'postId' };
 
@@ -120,7 +124,12 @@ const markdownProcessor = unified()
   .use(remarkParse)
   .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: false })
-  .use(rehypeStringify);
+  .use(rehypeStringify)
+  .use(rehypeSlug)
+  .use(rehypeAutolinkHeadings, {
+    behavior: 'wrap',
+    properties: { className: 'heading-link' }
+  });
 
 export function getPost(postsDirectory: string, id: Post['id']): Post {
   const filename = `${id}.md`;
