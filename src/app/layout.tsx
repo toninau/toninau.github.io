@@ -39,15 +39,17 @@ export default function RootLayout({
       <body className={`${inter.variable} ${noto_serif.variable} antialiased`}>
         <ThemeProvider>
           <div className="mb-6 flex content-center justify-center p-6">
-            <header className="flex w-full max-w-screen-sm flex-row flex-nowrap justify-between">
+            <header className="grid w-full max-w-screen-sm grid-cols-3">
               <Link
                 href={'/'}
-                className="text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
+                className="justify-self-start text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
               >
                 toninau
               </Link>
-              <ThemeSwitcher />
-              <ul className="flex w-fit gap-x-4 rounded-full px-2 py-1">
+              <div className="justify-self-center">
+                <ThemeSwitcher />
+              </div>
+              <ul className="flex w-fit gap-x-4 justify-self-end rounded-full px-2 py-1">
                 <li>
                   <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
                     <LinkedIn />
