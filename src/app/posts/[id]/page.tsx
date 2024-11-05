@@ -54,7 +54,7 @@ export default async function PostPage({ params }: PostPageProps) {
         className="prose prose-stone break-words dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
-      <footer className="my-8 border-t-2 border-stone-200 pt-8 dark:border-stone-700">
+      <footer className="my-8 border-t-2 border-stone-200 pt-8 dark:border-stone-200/10">
         <Link
           href={'/'}
           className="inline-flex items-center gap-2 rounded-lg bg-button p-2 text-base font-medium tracking-tighter text-secondary hover:bg-button-hover active:bg-button-active"

@@ -8,13 +8,22 @@
   --button: #fdf4dc;
   --button-hover: #fcefcb;
   --button-active: #fbe8b6;
+  --button-pressed-shadow-dark: #e6dec8;
+  --button-pressed-shadow-light: #fffff0;
   --link-icon: #a88f61;
   --link-icon-active: #766444;
 }
 
 .dark {
-  --background: #0a0a0a;
-  --secondary: #80663c;
+  --background: #161a1d;
+  --secondary: #d3c6aa;
+  --button: #2d3134;
+  --button-hover: #393c3f;
+  --button-active: #45484a;
+  --button-pressed-shadow-dark: #262a2c;
+  --button-pressed-shadow-light: #34383c;
+  --link-icon: #cbbb9a;
+  --link-icon-active: #e0d6c2;
 }
 
 body {

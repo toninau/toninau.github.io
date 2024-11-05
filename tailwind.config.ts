@@ -11,7 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       boxShadow: {
-        'button-pressed': 'inset 3px 3px 6px #e6dec8, inset -3px -3px 6px #fffff0'
+        'button-pressed':
+          'inset 3px 3px 6px var(--button-pressed-shadow-dark), inset -3px -3px 6px var(--button-pressed-shadow-light)'
       },
       keyframes: {
         'fade-in': {
