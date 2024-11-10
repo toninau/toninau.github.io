@@ -69,10 +69,10 @@ export function ThemeSwitcher() {
             ref={themeMenuRef}
           >
             <li className="flex items-center justify-center p-1">
-              <ThemeButton id="system" onClick={handleThemeClick} theme={theme} />
+              <ThemeButton id="light" onClick={handleThemeClick} theme={theme} />
             </li>
             <li className="flex items-center justify-center p-1">
-              <ThemeButton id="light" onClick={handleThemeClick} theme={theme} />
+              <ThemeButton id="system" onClick={handleThemeClick} theme={theme} />
             </li>
             <li className="flex items-center justify-center p-1">
               <ThemeButton id="dark" onClick={handleThemeClick} theme={theme} />
