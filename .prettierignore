@@ -13,6 +13,7 @@ dist
 dist-ssr
 *.local
 **/*.md
+*.output.html
 
 # Editor directories and files
 .vscode/*

@@ -1,4 +1,6 @@
-import { describe, test, expect, vi, beforeEach, assert } from 'vitest';
+import { join } from 'node:path';
+import { cwd } from 'node:process';
+import { describe, test, expect, assert } from 'vitest';
 import {
   FrontMatter,
   getPost,
@@ -9,7 +11,6 @@ import {
   ParsePostMatterResult,
   PostMatterError
 } from './postUtils';
-import { vol } from 'memfs';
 import { formatIsoDate } from './dateUtils';
 
 function createPostMarkdown(frontMatter: Partial<FrontMatter>, content: string) {
@@ -30,13 +31,8 @@ ${markdownFrontMatterString}
 ${content}`.trim();
 }
 
-// tell vitest to use fs mock from __mocks__ folder
-vi.mock('node:fs');
-
-beforeEach(() => {
-  // reset the state of in-memory fs
-  vol.reset();
-});
+const testPostsDirectory = join(cwd(), 'src', 'lib', 'test', 'posts');
+const testBrokenPostsDirectory = join(cwd(), 'src', 'lib', 'test', 'broken_posts');
 
 describe('postUtils', () => {
   describe('parsePostMatter', () => {
@@ -128,16 +124,7 @@ describe('postUtils', () => {
 
   describe('getPostIds', () => {
     test('returns post ids', () => {
-      const directory = '/tmp';
-      vol.fromJSON(
-        {
-          [`./test-post-one.md`]: 'This is content',
-          [`./test-post-two.md`]: 'This is content'
-        },
-        directory
-      );
-
-      const postIds = getPostIds(directory);
+      const postIds = getPostIds(testPostsDirectory);
 
       expect(postIds).toEqual([{ id: 'test-post-one' }, { id: 'test-post-two' }]);
     });
@@ -145,106 +132,45 @@ describe('postUtils', () => {
 
   describe('getSortedFrontPagePosts', () => {
     test('returns front page posts sorted by date', () => {
-      const directory = '/tmp';
+      const [newerPost, olderPost] = getSortedFrontPagePosts(testPostsDirectory);
 
-      const newerPost = {
-        id: 'test-post-two',
-        frontMatter: {
-          published: new Date(2020, 0, 2),
-          updated: null,
-          description: 'This is a test description',
-          title: 'This is a test post'
-        }
-      };
-
-      const olderPost = {
-        id: 'test-post-one',
-        frontMatter: {
-          published: new Date(2020, 0, 1),
-          updated: null,
-          description: 'This is a test description',
-          title: 'This is a test post'
-        }
-      };
-
-      vol.fromJSON(
-        {
-          [`./${olderPost.id}.md`]: createPostMarkdown(
-            { ...olderPost.frontMatter },
-            'This is content'
-          ),
-          [`./${newerPost.id}.md`]: createPostMarkdown(
-            { ...newerPost.frontMatter },
-            'This is content'
-          )
-        },
-        directory
-      );
-
-      const [post1, post2] = getSortedFrontPagePosts(directory);
-
-      expect(post1).toEqual(newerPost);
-      expect(post2).toEqual(olderPost);
       expect(
-        post1.frontMatter.published.getTime() > post2.frontMatter.published.getTime()
+        newerPost.frontMatter.published.getTime() > olderPost.frontMatter.published.getTime()
       ).toBeTruthy();
     });
 
     test('throws PostMatterError when front matter is not valid', () => {
-      const directory = '/tmp';
-      const filename = 'super-awesome-blog.md';
-      vol.fromJSON(
-        {
-          [`./${filename}`]: createPostMarkdown({}, 'This is content')
-        },
-        directory
-      );
-
       assert.throws(
-        () => getSortedFrontPagePosts(directory),
+        () => getSortedFrontPagePosts(testBrokenPostsDirectory),
         PostMatterError,
-        `Content in ${filename} is invalid.`
+        'Content in broken-post-one.md is invalid. Front matter is missing "published" property or "published" is not a valid date.'
       );
     });
   });
 
   describe('getPost', () => {
     test('returns post matter and html content', async () => {
-      const directory = '/tmp';
-      const filename = 'super-awesome-blog.md';
-      const frontMatter = {
+      const expectedFrontMatter = {
         published: new Date(2020, 0, 1),
         description: 'This is a test description',
         title: 'This is a test post',
-        updated: new Date(2021, 2, 2)
+        updated: null
       };
-      const content = 'This is content';
-      vol.fromJSON(
-        {
-          [`./${filename}`]: createPostMarkdown(frontMatter, content)
-        },
-        directory
-      );
 
-      const post = await getPost(directory, parsePostId(filename));
+      const post = await getPost(testPostsDirectory, parsePostId('test-post-one.md'));
 
-      expect(post.frontMatter).toEqual(frontMatter);
-      expect(post.html).toBe('<p>This is content</p>');
+      expect(post.frontMatter).toEqual(expectedFrontMatter);
+      // https://vitest.dev/guide/snapshot#file-snapshots
+      // use the --update or -u flag in the CLI to make Vitest update snapshots (`vitest -u`).
+      await expect(post.html).toMatchFileSnapshot('./test/test-post-one.output.html');
     });
 
     test('throws PostMatterError when front matter is not valid', () => {
-      const directory = '/tmp';
-      const filename = 'super-awesome-blog.md';
-      vol.fromJSON(
-        {
-          [`./${filename}`]: createPostMarkdown({}, 'This is content')
-        },
-        directory
-      );
-
       expect(async () => {
-        await getPost(directory, parsePostId(filename));
-      }).rejects.toThrow(`Content in ${filename} is invalid.`);
+        await getPost(testBrokenPostsDirectory, parsePostId('broken-post-one.md'));
+      }).rejects.toThrow(
+        'Content in broken-post-one.md is invalid. Front matter is missing "published" property or "published" is not a valid date.'
+      );
     });
   });
 });
