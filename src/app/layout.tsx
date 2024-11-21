@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Inter, Noto_Serif } from 'next/font/google';
-import Link from '@/components/Link';
 
+import Link from '@/components/Link';
 import GitHub from '@/components/icons/GitHub';
 import LinkedIn from '@/components/icons/LinkedIn';
 import ExternalIconLink from '@/components/ExternalIconLink';
 import { ThemeProvider, ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { LoadingIndicator, LoadingIndicatorProvider } from '@/components/LoadingIndicator';
 
 import './globals.css';
 
@@ -38,34 +39,37 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${noto_serif.variable} antialiased`}>
         <ThemeProvider>
-          <div className="mb-6 flex content-center justify-center p-6">
-            <header className="grid w-full max-w-screen-sm grid-cols-3">
-              <Link
-                href={'/'}
-                className="justify-self-start text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
-              >
-                toninau
-              </Link>
-              <div className="justify-self-center">
-                <ThemeSwitcher />
-              </div>
-              <ul className="flex w-fit gap-x-4 justify-self-end rounded-full px-2 py-1">
-                <li>
-                  <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
-                    <LinkedIn />
-                  </ExternalIconLink>
-                </li>
-                <li>
-                  <ExternalIconLink href="https://github.com/toninau" title="GitHub">
-                    <GitHub />
-                  </ExternalIconLink>
-                </li>
-              </ul>
-            </header>
-          </div>
-          <div className="flex content-center justify-center px-6">
-            <main className="w-full max-w-screen-sm">{children}</main>
-          </div>
+          <LoadingIndicatorProvider>
+            <LoadingIndicator />
+            <div className="mb-6 flex content-center justify-center p-6">
+              <header className="grid w-full max-w-screen-sm grid-cols-3">
+                <Link
+                  href={'/'}
+                  className="justify-self-start text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
+                >
+                  toninau
+                </Link>
+                <div className="justify-self-center">
+                  <ThemeSwitcher />
+                </div>
+                <ul className="flex w-fit gap-x-4 justify-self-end rounded-full px-2 py-1">
+                  <li>
+                    <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
+                      <LinkedIn />
+                    </ExternalIconLink>
+                  </li>
+                  <li>
+                    <ExternalIconLink href="https://github.com/toninau" title="GitHub">
+                      <GitHub />
+                    </ExternalIconLink>
+                  </li>
+                </ul>
+              </header>
+            </div>
+            <div className="flex content-center justify-center px-6">
+              <main className="w-full max-w-screen-sm">{children}</main>
+            </div>
+          </LoadingIndicatorProvider>
         </ThemeProvider>
       </body>
     </html>

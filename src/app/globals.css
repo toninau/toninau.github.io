@@ -51,3 +51,8 @@ body {
 .heading-link:hover {
   text-decoration: underline;
 }
+
+.loading-animation {
+  animation-delay: 300ms;
+  animation-fill-mode: forwards;
+}

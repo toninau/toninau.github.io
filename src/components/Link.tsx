@@ -1,5 +1,8 @@
+'use client';
 import NextLink, { LinkProps as NextLinkProps } from 'next/link';
+import { usePathname } from 'next/navigation';
 import React from 'react';
+import { useLoadingIndicatorUpdater } from './LoadingIndicator';
 
 type LinkProps = {
   children?: React.ReactNode;
@@ -7,9 +10,18 @@ type LinkProps = {
   href: NextLinkProps['href'];
 };
 
-export default function PostLink({ children, className, href }: LinkProps) {
+export default function Link({ children, className, href }: LinkProps) {
+  const { startLoading } = useLoadingIndicatorUpdater();
+  const pathname = usePathname();
+
+  const handleClick = () => {
+    if (href !== pathname) {
+      startLoading();
+    }
+  };
+
   return (
-    <NextLink href={href} prefetch={false} className={className}>
+    <NextLink onClick={handleClick} href={href} prefetch={false} className={className}>
       {children}
     </NextLink>
   );
