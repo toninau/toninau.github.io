@@ -57,7 +57,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          name: build
+          name: dist
           path: './dist'
 
   # e2e test job
@@ -73,14 +73,15 @@ jobs:
       - name: Download build
         uses: actions/download-artifact@v4
         with:
-          name: build
+          name: dist
+          path: './dist'
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Serve static site for Playwright tests
         run: |
-          npx serve@latest dist &
+          npx serve@latest ./dist &
           sleep 5
       - name: Wait for static site to be up
         run: |
@@ -93,7 +94,7 @@ jobs:
             sleep 5
           done
       - name: Run Playwright tests
-        run: npm run e2e
+        run: npx playwright test
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
