@@ -1,5 +1,10 @@
+import { Metadata } from 'next';
 import ArrowReturnLeft from '@/components/icons/ArrowReturnLeft';
 import Link from '@/components/Link';
+
+export const metadata: Metadata = {
+  title: '404 Not Found'
+};
 
 export default function NotFound() {
   return (

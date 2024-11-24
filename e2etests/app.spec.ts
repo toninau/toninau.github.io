@@ -96,3 +96,24 @@ test.describe('theme switcher', () => {
     await expect(page.locator('html')).toHaveClass('dark');
   });
 });
+
+test.describe('404', () => {
+  test('404 page exists and links back to front page', async ({ page }) => {
+    // navigate to a page that does not exist
+    const response = await page.goto('/some/page/that/will/never/exist');
+
+    // verify that current page is 404 page
+    expect(response?.status()).toBe(404);
+    await expect(page).toHaveTitle(/not found/i);
+    await expect(page.getByText(/not found/i)).toBeVisible();
+
+    // navigate back to front page from 404 page
+    await page.getByRole('link', { name: 'Return to front page' }).click();
+    await page.waitForURL('/');
+
+    // verify that current page is front page
+    await expect(page).toHaveTitle("toninau's Dev Blog");
+    await expect(page.getByRole('heading', { name: 'About' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Posts' })).toBeVisible();
+  });
+});
