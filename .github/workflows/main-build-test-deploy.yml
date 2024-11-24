@@ -70,23 +70,22 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Download github pages artifact
+        id: download
         uses: actions/download-artifact@v4
         with:
           name: github-pages
-          path: ./github-pages
-      - name: Display structure of downloaded files
-        run: ls -R ./github-pages
+          path: github-pages
       - name: Extract dist from github pages artifact
         run: |
           mkdir dist
-          tar -xvf ./github-pages/artifact.tar -C ./dist
+          tar -xvf ${{ steps.download.outputs.download-path }}/artifact.tar -C dist
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Serve static site for Playwright tests
         run: |
-          npx serve@latest ./dist &
+          npx serve@latest dist &
           sleep 5
       - name: Wait for static site to be up
         run: |
