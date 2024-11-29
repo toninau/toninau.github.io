@@ -48,7 +48,7 @@ export function ThemeSwitcher() {
       <button
         id={themeButtonId}
         type="button"
-        className="w-fit rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover active:bg-button-active"
+        className={`w-fit rounded-full bg-button px-2 py-1 text-secondary transition hover:bg-button-hover active:bg-button-active ${isMenuMounted ? 'scale-90' : ''}`}
         onClick={toggleDisplayMenu}
         aria-haspopup="dialog"
         aria-expanded={isMenuDisplayed}

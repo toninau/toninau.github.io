@@ -18,27 +18,31 @@ const config: Config = {
         'fade-in': {
           from: {
             opacity: '0',
-            visibility: 'hidden'
+            visibility: 'hidden',
+            transform: 'scaleY(0.8) translate(-50%)'
           },
           to: {
             opacity: '1',
-            visibility: 'visible'
+            visibility: 'visible',
+            transform: 'scaleY(1) translate(-50%)'
           }
         },
         'fade-out': {
           from: {
             opacity: '1',
-            visibility: 'visible'
+            visibility: 'visible',
+            transform: 'scaleY(1) translate(-50%)'
           },
           to: {
             opacity: '0',
-            visibility: 'hidden'
+            visibility: 'hidden',
+            transform: 'scaleY(0.8) translate(-50%)'
           }
         }
       },
       animation: {
-        'fade-in': 'fade-in 250ms ease-in',
-        'fade-out': 'fade-out 250ms ease-out forwards'
+        'fade-in': 'fade-in 150ms ease-out',
+        'fade-out': 'fade-out 150ms ease-out forwards'
       },
       colors: {
         background: 'var(--background)',
