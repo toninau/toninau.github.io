@@ -11,12 +11,14 @@ type LinkProps = {
 };
 
 export default function Link({ children, className, href }: LinkProps) {
-  const { startLoading } = useLoadingIndicatorUpdater();
+  const { startLoading, finishLoading } = useLoadingIndicatorUpdater();
   const pathname = usePathname();
 
   const handleClick = () => {
     if (href !== pathname) {
       startLoading();
+    } else {
+      finishLoading();
     }
   };
 
