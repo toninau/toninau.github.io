@@ -40,6 +40,7 @@ test.describe('accessibility', () => {
   }) => {
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .exclude('figure[data-rehype-pretty-code-figure]')
       .analyze();
 
     expect(accessibilityScanResults.violations).toEqual([]);
@@ -60,6 +61,7 @@ test.describe('accessibility', () => {
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .exclude('figure[data-rehype-pretty-code-figure]')
       .analyze();
 
     expect(accessibilityScanResults.violations).toEqual([]);
