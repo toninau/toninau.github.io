@@ -131,7 +131,7 @@ const markdownProcessor = unified()
     properties: { className: 'heading-link' }
   })
   .use(rehypePrettyCode, {
-    theme: 'everforest-dark'
+    theme: 'kanagawa-wave'
   })
   .use(rehypeStringify);
 
