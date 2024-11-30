@@ -54,7 +54,10 @@ export default function RootLayout({
                 </div>
                 <ul className="flex w-fit gap-x-4 justify-self-end rounded-full px-2 py-1">
                   <li>
-                    <ExternalIconLink href="https://github.com/toninau" title="LinkedIn">
+                    <ExternalIconLink
+                      href="https://www.linkedin.com/in/toni-naumanen/"
+                      title="LinkedIn"
+                    >
                       <LinkedIn />
                     </ExternalIconLink>
                   </li>
