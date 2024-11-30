@@ -19,24 +19,24 @@ const config: Config = {
           from: {
             opacity: '0',
             visibility: 'hidden',
-            transform: 'scaleY(0.8) translate(-50%)'
+            transform: 'scaleY(1.2)'
           },
           to: {
             opacity: '1',
             visibility: 'visible',
-            transform: 'scaleY(1) translate(-50%)'
+            transform: 'scaleY(1)'
           }
         },
         'fade-out': {
           from: {
             opacity: '1',
             visibility: 'visible',
-            transform: 'scaleY(1) translate(-50%)'
+            transform: 'scaleY(1)'
           },
           to: {
             opacity: '0',
             visibility: 'hidden',
-            transform: 'scaleY(0.8) translate(-50%)'
+            transform: 'scaleY(0.8)'
           }
         }
       },

@@ -62,9 +62,9 @@ export function ThemeSwitcher() {
         <span className="sr-only">Theme options</span>
       </button>
       {isMenuDisplayed && (
-        <div aria-labelledby={themeButtonId} role="dialog">
+        <div aria-labelledby={themeButtonId} role="dialog" className="absolute left-1/2">
           <ul
-            className={`menu-list absolute left-1/2 mt-4 flex w-fit -translate-x-1/2 rounded-full bg-button p-1 shadow-md ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
+            className={`menu-list relative -left-1/2 mt-4 flex w-fit rounded-full bg-button p-1 shadow-md ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
             onAnimationEnd={handleAnimationEnd}
             ref={themeMenuRef}
           >
