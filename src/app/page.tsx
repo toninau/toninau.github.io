@@ -14,10 +14,12 @@ export default function FrontPage() {
           About
         </h2>
         <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
-          Hi! My name is <BoldText>Toni Naumanen</BoldText> and I&apos;m a{' '}
+          Hi! My name is <BoldText>Toni Naumanen</BoldText>, and I&apos;m a{' '}
           <BoldText>Software Engineer/Full Stack Web Developer</BoldText> based in{' '}
           <BoldText>Helsinki, Finland</BoldText>, currently working at <BoldText>Solita</BoldText>.
           I focus on building web applications that are accessible, functional and easy to use.
+        </p>
+        <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
           Outside of spending my time building web applications and learning about the web side of
           things, I enjoy trying out new things, creating and playing games, and making and eating
           pizza 🍕.
