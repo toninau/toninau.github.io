@@ -1,4 +1,4 @@
-import { getSortedFrontPagePosts, postsDirectory } from '@/lib/postUtils';
+import { getSortedFrontPagePosts, postsDirectory } from '@/lib/post';
 import DateText from '@/components/DateText';
 import Link from '@/components/Link';
 import ArrowRight from '@/components/icons/ArrowRight';

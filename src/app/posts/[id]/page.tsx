@@ -1,7 +1,7 @@
 import DateText from '@/components/DateText';
 import ArrowReturnLeft from '@/components/icons/ArrowReturnLeft';
 import Link from '@/components/Link';
-import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/postUtils';
+import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/post';
 
 type PostPageProps = {
   params: { id: PostId };

@@ -12,7 +12,7 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 
-import { parseIsoDateString } from './dateUtils';
+import { parseIsoDateString } from './date';
 
 export type PostId = string & { _brand: 'postId' };
 

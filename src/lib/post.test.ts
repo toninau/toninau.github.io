@@ -10,8 +10,8 @@ import {
   parsePostMatter,
   ParsePostMatterResult,
   PostMatterError
-} from './postUtils';
-import { formatIsoDate } from './dateUtils';
+} from './post';
+import { formatIsoDate } from './date';
 
 function createPostMarkdown(frontMatter: Partial<FrontMatter>, content: string) {
   const markdownFrontMatter = {
@@ -34,7 +34,7 @@ ${content}`.trim();
 const testPostsDirectory = join(cwd(), 'src', 'lib', 'test', 'posts');
 const testBrokenPostsDirectory = join(cwd(), 'src', 'lib', 'test', 'broken_posts');
 
-describe('postUtils', () => {
+describe('post', () => {
   describe('parsePostMatter', () => {
     test('parsing valid post works', () => {
       const validMatter: ParsePostMatterResult = {

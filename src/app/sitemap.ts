@@ -1,5 +1,5 @@
-import { formatIsoDate } from '@/lib/dateUtils';
-import { getSortedFrontPagePosts, postsDirectory } from '@/lib/postUtils';
+import { formatIsoDate } from '@/lib/date';
+import { getSortedFrontPagePosts, postsDirectory } from '@/lib/post';
 import { MetadataRoute } from 'next';
 
 export const baseUrl = 'https://toninau.github.io';

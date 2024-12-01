@@ -1,7 +1,7 @@
 import { describe, test, expect, assert } from 'vitest';
-import { parseIsoDateString, formatIsoDate, formatClientDate } from './dateUtils';
+import { parseIsoDateString, formatIsoDate, formatClientDate } from './date';
 
-describe('dateUtils', () => {
+describe('date', () => {
   test('parseIsoDateString', () => {
     expect(parseIsoDateString('2024-28-9')).toEqual(new Date('invalid date'));
     expect(parseIsoDateString('2024-2-09')).toEqual(new Date('invalid date'));
