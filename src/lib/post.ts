@@ -31,7 +31,7 @@ export type PostMatter = {
 export type Post = {
   frontMatter: FrontMatter;
   html: string;
-  id: PostId;
+  postId: PostId;
 };
 
 export type FrontPagePost = Omit<Post, 'html'>;
@@ -96,16 +96,16 @@ export function parsePostId(filename: string): PostId {
 
 export const postsDirectory = join(cwd(), 'src', 'posts');
 
-export function getPostIds(postsDirectory: string): { id: PostId }[] {
+export function getPostIds(postsDirectory: string): { postId: PostId }[] {
   return readdirSync(postsDirectory).map((filename) => ({
-    id: parsePostId(filename)
+    postId: parsePostId(filename)
   }));
 }
 
 export function getSortedFrontPagePosts(postsDirectory: string): FrontPagePost[] {
   return readdirSync(postsDirectory)
     .map((filename) => {
-      const id = parsePostId(filename);
+      const postId = parsePostId(filename);
       const fileContent = readFileSync(join(postsDirectory, filename));
       const postMatterResult = parsePostMatter(fileContent);
 
@@ -114,7 +114,7 @@ export function getSortedFrontPagePosts(postsDirectory: string): FrontPagePost[]
       }
 
       return {
-        id,
+        postId,
         frontMatter: postMatterResult.value.frontMatter
       };
     })
@@ -135,8 +135,8 @@ const markdownProcessor = unified()
   })
   .use(rehypeStringify);
 
-export async function getPost(postsDirectory: string, id: Post['id']): Promise<Post> {
-  const filename = `${id}.md`;
+export async function getPost(postsDirectory: string, postId: Post['postId']): Promise<Post> {
+  const filename = `${postId}.md`;
   const fileContent = readFileSync(join(postsDirectory, filename));
   const postMatterResult = parsePostMatter(fileContent);
 
@@ -149,7 +149,7 @@ export async function getPost(postsDirectory: string, id: Post['id']): Promise<P
   return {
     ...postMatterResult.value,
     html,
-    id
+    postId
   };
 }
 

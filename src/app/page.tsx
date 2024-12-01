@@ -32,9 +32,9 @@ export default function FrontPage() {
           Posts
         </h2>
         {frontPagePosts.map((post) => (
-          <article className="my-6" key={post.id}>
+          <article className="my-6" key={post.postId}>
             <h3 className="my-2 text-2xl font-medium tracking-tighter text-stone-900 dark:text-white">
-              <Link className="group hover:underline" href={`/posts/${post.id}`}>
+              <Link className="group hover:underline" href={`/posts/${post.postId}`}>
                 {post.frontMatter.title}
                 <span aria-hidden={true} className="inline whitespace-nowrap">
                   &nbsp;

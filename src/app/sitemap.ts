@@ -6,7 +6,7 @@ export const baseUrl = 'https://toninau.github.io';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getSortedFrontPagePosts(postsDirectory).map((post) => ({
-    url: `${baseUrl}/posts/${post.id}`,
+    url: `${baseUrl}/posts/${post.postId}`,
     lastModified: formatIsoDate(post.frontMatter.updated ?? post.frontMatter.published)
   }));
 

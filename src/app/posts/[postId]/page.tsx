@@ -4,7 +4,7 @@ import Link from '@/components/Link';
 import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/post';
 
 type PostPageProps = {
-  params: { id: PostId };
+  params: { postId: PostId };
 };
 
 export async function generateStaticParams() {
@@ -12,7 +12,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
-  const post = await getPost(postsDirectory, params.id);
+  const post = await getPost(postsDirectory, params.postId);
   return {
     title: post?.frontMatter.title,
     description: post?.frontMatter.description
@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: PostPageProps) {
 }
 
 export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPost(postsDirectory, params.id);
+  const post = await getPost(postsDirectory, params.postId);
 
   return (
     <article>

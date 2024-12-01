@@ -126,7 +126,7 @@ describe('post', () => {
     test('returns post ids', () => {
       const postIds = getPostIds(testPostsDirectory);
 
-      expect(postIds).toEqual([{ id: 'test-post-one' }, { id: 'test-post-two' }]);
+      expect(postIds).toEqual([{ postId: 'test-post-one' }, { postId: 'test-post-two' }]);
     });
   });
 
