@@ -21,11 +21,10 @@ export default function FrontPage() {
         </p>
         <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
           Outside of spending my time building web applications and learning about the web side of
-          things, I enjoy trying out new things, creating and playing games, and making and eating
-          pizza 🍕.
+          things, I enjoy creating and playing games, and making and eating pizza 🍕.
         </p>
         <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
-          Some of the technologies I tend to use:{' '}
+          Some of the technologies I tend to use are:{' '}
           <BoldText>React, JavaScript, TypeScript, Spring, Java and Kotlin.</BoldText>
         </p>
       </article>
