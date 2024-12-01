@@ -13,11 +13,18 @@ export default function FrontPage() {
         <h2 className="mb-8 mt-6 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
           About
         </h2>
-        <p className="font-serif text-stone-700 dark:text-stone-300">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ac eros egestas, eleifend
-          lectus nec, sagittis elit. Fusce quis purus at ex interdum consequat at eget dui. Duis
-          augue augue, luctus eget nunc eget, aliquet mollis lorem. Proin quam ex, auctor id
-          placerat et, commodo in nibh.
+        <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
+          Hi! My name is <BoldText>Toni Naumanen</BoldText> and I&apos;m a{' '}
+          <BoldText>Software Engineer/Full Stack Web Developer</BoldText> based in{' '}
+          <BoldText>Helsinki, Finland</BoldText>, currently working at <BoldText>Solita</BoldText>.
+          I focus on building web applications that are accessible, functional and easy to use.
+          Outside of spending my time building web applications and learning about the web side of
+          things, I enjoy trying out new things, creating and playing games, and making and eating
+          pizza 🍕.
+        </p>
+        <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
+          Some of the technologies I tend to use:{' '}
+          <BoldText>React, JavaScript, TypeScript, Spring, Java and Kotlin.</BoldText>
         </p>
       </article>
       <article>
@@ -66,4 +73,8 @@ export default function FrontPage() {
       </article>
     </>
   );
+}
+
+function BoldText({ children }: { children: React.ReactNode }) {
+  return <span className="font-bold text-stone-900 dark:text-white">{children}</span>;
 }
