@@ -25,7 +25,7 @@ export default function FrontPage() {
         </p>
         <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
           Some of the technologies I tend to use are:{' '}
-          <BoldText>React, JavaScript, TypeScript, Spring, Java and Kotlin.</BoldText>
+          <BoldText>React, JavaScript, TypeScript, Spring Boot, Java and Kotlin.</BoldText>
         </p>
       </article>
       <article>
