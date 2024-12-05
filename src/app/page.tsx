@@ -24,7 +24,7 @@ export default function FrontPage() {
           things, I enjoy creating and playing games, and making and eating pizza 🍕.
         </p>
         <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
-          Some of the technologies I tend to use are:{' '}
+          Technologies I tend to use:{' '}
           <BoldText>React, JavaScript, TypeScript, Spring Boot, Java and Kotlin.</BoldText>
         </p>
       </article>
