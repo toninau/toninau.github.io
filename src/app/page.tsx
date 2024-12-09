@@ -39,7 +39,7 @@ export default function FrontPage() {
                 {post.frontMatter.title}
                 <span aria-hidden={true} className="inline whitespace-nowrap">
                   &nbsp;
-                  <ArrowRight className="inline-block size-5 transition ease-in-out group-hover:translate-x-1" />
+                  <ArrowRight className="inline-block size-5 transition ease-in-out motion-safe:group-hover:translate-x-1" />
                 </span>
               </Link>
             </h3>

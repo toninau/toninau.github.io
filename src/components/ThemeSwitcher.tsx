@@ -48,7 +48,7 @@ export function ThemeSwitcher() {
       <button
         id={themeButtonId}
         type="button"
-        className={`w-fit rounded-full bg-button px-2 py-1 text-secondary transition hover:bg-button-hover active:bg-button-active ${isMenuMounted ? 'scale-90' : ''}`}
+        className={`w-fit rounded-full bg-button px-2 py-1 text-secondary hover:bg-button-hover active:bg-button-active motion-safe:transition ${isMenuMounted ? 'scale-90' : ''}`}
         onClick={toggleDisplayMenu}
         aria-haspopup="dialog"
         aria-expanded={isMenuDisplayed}
@@ -64,7 +64,7 @@ export function ThemeSwitcher() {
       {isMenuDisplayed && (
         <div aria-labelledby={themeButtonId} role="dialog" className="absolute left-1/2">
           <ul
-            className={`menu-list relative -left-1/2 mt-4 flex w-fit rounded-full bg-button p-1 shadow-md ${isMenuMounted ? 'animate-fade-in' : 'animate-fade-out'}`}
+            className={`menu-list relative -left-1/2 mt-4 flex w-fit rounded-full bg-button p-1 shadow-md ${isMenuMounted ? 'animate-fade-in motion-reduce:animate-none' : 'animate-fade-out motion-reduce:animate-[fade-out_0s_ease-out_forwards]'}`}
             onAnimationEnd={handleAnimationEnd}
             ref={themeMenuRef}
           >
