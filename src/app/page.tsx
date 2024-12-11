@@ -47,7 +47,7 @@ export default function FrontPage() {
               {post.frontMatter.description}
             </p>
             <footer>
-              <dl className="my-1 flex items-center gap-2 text-sm font-normal text-secondary max-[300px]:max-w-min">
+              <dl className="my-1 flex items-center gap-2 font-serif text-sm font-normal text-secondary max-[300px]:max-w-min">
                 <div>
                   <dt className="sr-only">Published</dt>
                   <dd>
