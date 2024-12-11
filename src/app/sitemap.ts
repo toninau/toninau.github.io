@@ -2,6 +2,8 @@ import { formatIsoDate } from '@/lib/date';
 import { getSortedFrontPagePosts, postsDirectory } from '@/lib/post';
 import { MetadataRoute } from 'next';
 
+export const dynamic = 'force-static';
+
 export const baseUrl = 'https://toninau.github.io';
 
 export default function sitemap(): MetadataRoute.Sitemap {

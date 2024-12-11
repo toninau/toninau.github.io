@@ -165,8 +165,8 @@ describe('post', () => {
       await expect(post.html).toMatchFileSnapshot('./test/test-post-one.output.html');
     });
 
-    test('throws PostMatterError when front matter is not valid', () => {
-      expect(async () => {
+    test('throws PostMatterError when front matter is not valid', async () => {
+      await expect(async () => {
         await getPost(testBrokenPostsDirectory, parsePostId('broken-post-one.md'));
       }).rejects.toThrow(
         'Content in broken-post-one.md is invalid. Front matter is missing "published" property or "published" is not a valid date.'
