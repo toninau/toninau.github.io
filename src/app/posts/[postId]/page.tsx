@@ -1,6 +1,5 @@
 import DateText from '@/components/DateText';
-import ArrowReturnLeft from '@/components/icons/ArrowReturnLeft';
-import Link from '@/components/Link';
+import ReturnToFrontPageLink from '@/components/ReturnToFrontPageLink';
 import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/post';
 
 type PostPageProps = {
@@ -57,12 +56,7 @@ export default async function PostPage(props: PostPageProps) {
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
       <footer className="my-8 border-t-2 border-stone-200 pt-8 dark:border-stone-200/10">
-        <Link
-          href={'/'}
-          className="inline-flex items-center gap-2 rounded-lg bg-button p-2 text-base font-medium tracking-tighter text-secondary hover:bg-button-hover active:bg-button-active"
-        >
-          <ArrowReturnLeft /> Return to front page
-        </Link>
+        <ReturnToFrontPageLink />
       </footer>
     </article>
   );
