@@ -135,7 +135,7 @@ const markdownProcessor = unified()
   })
   .use(rehypeStringify);
 
-export async function getPost(postsDirectory: string, postId: Post['postId']): Promise<Post> {
+export async function getPost(postsDirectory: string, postId: PostId): Promise<Post> {
   const filename = `${postId}.md`;
   const fileContent = readFileSync(join(postsDirectory, filename));
   const postMatterResult = parsePostMatter(fileContent);
