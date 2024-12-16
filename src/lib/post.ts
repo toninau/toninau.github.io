@@ -147,7 +147,7 @@ export async function getPost(postsDirectory: string, postId: PostId): Promise<P
   const html = String(await markdownProcessor.process(postMatterResult.value.content));
 
   return {
-    ...postMatterResult.value,
+    frontMatter: postMatterResult.value.frontMatter,
     html,
     postId
   };
