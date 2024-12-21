@@ -26,10 +26,10 @@ export default async function PostPage(props: PostPageProps) {
   return (
     <article>
       <header className="mb-8 mt-6">
-        <h1 className="my-2 font-heading text-4xl font-semibold tracking-tight text-stone-900 dark:text-white">
+        <h1 className="my-2 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
           {post.frontMatter.title}
         </h1>
-        <dl className="my-1 flex items-center gap-2 font-body text-sm font-normal text-secondary max-[300px]:max-w-min">
+        <dl className="my-1 flex items-center gap-2 font-serif text-sm font-normal text-secondary max-[300px]:max-w-min">
           <div>
             <dt className="sr-only">Published</dt>
             <dd>
@@ -52,7 +52,7 @@ export default async function PostPage(props: PostPageProps) {
         </dl>
       </header>
       <section
-        className="prose prose-stone min-w-full break-words dark:prose-invert prose-headings:font-heading prose-headings:font-semibold prose-headings:tracking-tight prose-p:font-body prose-pre:px-0 prose-ol:font-body prose-ul:font-body"
+        className="prose prose-stone break-words dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif prose-pre:px-0 prose-ol:font-serif prose-ul:font-serif"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
       <footer className="my-8 border-t-[1px] border-stone-200 pt-8 dark:border-stone-700">

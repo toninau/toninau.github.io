@@ -28,7 +28,7 @@
 
 body {
   background: var(--background);
-  font-family: var(--font-noto-serif);
+  font-family: var(--font-inter);
 }
 
 .menu-list::before {

@@ -55,8 +55,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
-        heading: ['var(--font-literata)'],
-        body: ['var(--font-noto-serif)']
+        serif: ['var(--font-noto-serif)']
       }
     }
   },

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Noto_Serif, Inter, Literata } from 'next/font/google';
+import { Inter, Noto_Serif } from 'next/font/google';
 
 import Link from '@/components/Link';
 import GitHub from '@/components/icons/GitHub';
@@ -22,12 +22,6 @@ const noto_serif = Noto_Serif({
   variable: '--font-noto-serif'
 });
 
-const literata = Literata({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-literata'
-});
-
 export const metadata: Metadata = {
   title: {
     template: "%s - toninau's Dev Blog",
@@ -43,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${noto_serif.variable} ${literata.variable} antialiased`}>
+      <body className={`${inter.variable} ${noto_serif.variable} antialiased`}>
         <ThemeProvider>
           <LoadingIndicatorProvider>
             <LoadingIndicator />
@@ -51,7 +45,7 @@ export default function RootLayout({
               <header className="grid w-full max-w-screen-sm grid-cols-3">
                 <Link
                   href={'/'}
-                  className="justify-self-start font-sans text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
+                  className="justify-self-start text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
                 >
                   toninau
                 </Link>
