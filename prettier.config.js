@@ -15,7 +15,15 @@ const config = {
   bracketSameLine: false,
   arrowParens: 'always',
   endOfLine: 'lf',
-  plugins: ['prettier-plugin-tailwindcss']
+  plugins: ['prettier-plugin-tailwindcss'],
+  overrides: [
+    {
+      files: '**/*.md',
+      options: {
+        printWidth: 80
+      }
+    }
+  ]
 };
 
 export default config;

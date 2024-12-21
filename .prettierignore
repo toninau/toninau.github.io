@@ -12,7 +12,7 @@ node_modules
 dist
 dist-ssr
 *.local
-**/*.md
+**/test/**/*.md
 *.output.html
 
 # Editor directories and files
