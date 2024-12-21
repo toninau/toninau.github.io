@@ -14,6 +14,6 @@ Some more text
 
 ```ts
 const options = {
-  theme: "one-dark-pro",
+  theme: 'one-dark-pro'
 };
 ```
