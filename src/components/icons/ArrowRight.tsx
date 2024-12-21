@@ -2,14 +2,14 @@ export default function ArrowRight({ className = 'size-5' }: { className?: strin
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
+      viewBox="0 0 16 16"
       fill="currentColor"
       className={className}
       aria-hidden="true"
     >
       <path
         fillRule="evenodd"
-        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+        d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z"
         clipRule="evenodd"
       />
     </svg>
