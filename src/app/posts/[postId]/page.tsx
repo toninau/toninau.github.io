@@ -55,7 +55,7 @@ export default async function PostPage(props: PostPageProps) {
         className="prose prose-stone min-w-full break-words dark:prose-invert prose-headings:font-heading prose-headings:font-semibold prose-headings:tracking-tight prose-p:font-body prose-pre:px-0 prose-ol:font-body prose-ul:font-body"
         dangerouslySetInnerHTML={{ __html: post.html }}
       ></section>
-      <footer className="my-8 border-t-2 border-stone-200 pt-8 dark:border-stone-200/10">
+      <footer className="my-8 border-t-[1px] border-stone-200 pt-8 dark:border-stone-700">
         <ReturnToFrontPageLink />
       </footer>
     </article>
