@@ -62,7 +62,7 @@ export function LoadingIndicator() {
 
   return (
     <div aria-live="polite" aria-busy={isLoading}>
-      <div className="pointer-events-none fixed bottom-0 flex w-full justify-center px-6 py-8">
+      <div className="pointer-events-none fixed bottom-0 z-10 flex w-full justify-center px-6 py-8">
         <div className="flex w-full max-w-screen-sm justify-end">
           {isLoading && (
             <div
