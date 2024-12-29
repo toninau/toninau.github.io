@@ -4,7 +4,7 @@ import { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
 
-export const baseUrl = 'https://toninau.github.io';
+export const baseUrl = process.env.BASE_URL ?? '';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getSortedFrontPagePosts(postsDirectory).map((post) => ({
