@@ -45,7 +45,7 @@ export default function RootLayout({
               <header className="grid w-full max-w-screen-sm grid-cols-3">
                 <Link
                   href={'/'}
-                  className="justify-self-start text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
+                  className="self-center justify-self-start text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"
                 >
                   toninau
                 </Link>
