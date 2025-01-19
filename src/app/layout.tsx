@@ -41,7 +41,7 @@ export default function RootLayout({
         <ThemeProvider>
           <LoadingIndicatorProvider>
             <LoadingIndicator />
-            <div className="mb-6 flex content-center justify-center px-4 py-6 sm:px-6">
+            <div className="mb-6 flex content-center justify-center p-6">
               <header className="grid w-full max-w-screen-sm grid-cols-3">
                 <Link
                   href={'/'}
@@ -52,7 +52,7 @@ export default function RootLayout({
                 <div className="justify-self-center">
                   <ThemeSwitcher />
                 </div>
-                <ul className="flex w-fit gap-x-4 justify-self-end rounded-full py-1">
+                <ul className="flex w-fit gap-x-4 justify-self-end rounded-full px-2 py-1">
                   <li>
                     <ExternalIconLink
                       href="https://www.linkedin.com/in/toni-naumanen/"
@@ -69,7 +69,9 @@ export default function RootLayout({
                 </ul>
               </header>
             </div>
-            {children}
+            <div className="flex content-center justify-center px-6">
+              <main className="w-full max-w-screen-sm">{children}</main>
+            </div>
           </LoadingIndicatorProvider>
         </ThemeProvider>
       </body>
