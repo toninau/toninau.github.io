@@ -54,7 +54,7 @@ export default async function PostPage(props: PostPageProps) {
             </dl>
           </header>
           <section
-            className="prose prose-stone min-w-full break-words dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif prose-pre:px-0 prose-ol:font-serif prose-ul:font-serif max-sm:prose-pre:rounded-none max-sm:[&>*:not(figure)]:mx-4"
+            className="prose prose-stone min-w-full break-words max-sm:prose-sm dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif prose-pre:px-0 prose-ol:font-serif prose-ul:font-serif max-sm:prose-pre:rounded-none max-sm:[&>*:not(figure)]:mx-4"
             dangerouslySetInnerHTML={{ __html: post.html }}
           ></section>
           <footer className="my-8 border-t-[1px] border-stone-200 pt-8 max-sm:mx-4 dark:border-stone-700">
