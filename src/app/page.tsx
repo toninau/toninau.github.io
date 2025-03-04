@@ -16,7 +16,7 @@ export default function FrontPage() {
           </h2>
           <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
             Hi! My name is <BoldText>Toni Naumanen</BoldText>, and I&apos;m a{' '}
-            <BoldText>Software Engineer/Full Stack Web Developer</BoldText> based in{' '}
+            <BoldText>Software Engineer/Full Stack Developer</BoldText> based in{' '}
             <BoldText>Helsinki, Finland</BoldText>, currently working at <BoldText>Solita</BoldText>
             . I focus on building web applications that are accessible, functional and easy to use.
           </p>
