@@ -2,6 +2,11 @@
 title: 'Make illegal states unrepresentable when designing React components'
 description: 'Representing the logic of the component using types.'
 published: '2025-04-22'
+updated: '2025-04-29'
+---
+
+_This post was inspired by [Designing with types: Making illegal states unrepresentable](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/)._
+
 ---
 
 Let's say we're working on a React project and we need to create a basic reusable button component.
@@ -220,5 +225,3 @@ Which is what we were originally trying to achieve ✨
 To wrap things up, making a component too flexible can lead to unintended misuse, and if there's nothing representing the logic of the component, how can developers be expected to use the component properly? Sure, documentation and Storybook can be a thing, but honestly, how often do people actually read them?
 
 It's really up to you how you design your components. Maybe your use case requires flexibility but being stricter with the types and representing the logic of the component using types, can help catch "dumb" mistakes earlier and improve developer experience.
-
-And yes, this post was inspired by [Designing with types: Making illegal states unrepresentable](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/).
