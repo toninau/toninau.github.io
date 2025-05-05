@@ -2,7 +2,7 @@
 title: 'Make illegal states unrepresentable when designing React components'
 description: 'Representing the logic of the component using types.'
 published: '2025-04-22'
-updated: '2025-04-29'
+updated: '2025-05-05'
 ---
 
 _This post was inspired by [Designing with types: Making illegal states unrepresentable](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/)._
@@ -167,7 +167,7 @@ But let's say we'd prefer a single button component over multiple ones, what are
 
 We can define a union of types that use an [optional `never` type](https://effectivetypescript.com/2021/11/11/optional-never/) to disallow certain properties:
 
-```tsx {3, 4, 8, 15}
+```tsx {3, 4, 8, 15, 19-21}
 type TextButtonProps = {
   label: string;
   ariaLabel?: never;
