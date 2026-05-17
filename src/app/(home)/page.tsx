@@ -16,15 +16,19 @@ export default function HomePage() {
             Hi! My name is <BoldText>Toni Naumanen</BoldText>, and I&apos;m a{' '}
             <BoldText>Software Engineer/Full Stack Developer</BoldText> based in{' '}
             <BoldText>Helsinki, Finland</BoldText>, currently working at <BoldText>Solita</BoldText>
-            . I focus on building web applications that are accessible, functional and easy to use.
+            . I work on large-scale systems that tend to have longer lifecycles where reliability,
+            performance, and clarity matter.
           </p>
           <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
-            Outside of spending my time building web applications and learning about the web side of
-            things, I enjoy creating and playing games, and making and eating pizza 🍕.
+            Outside of building software and keeping up with the fast&#x2010;moving world of modern
+            engineering, I enjoy playing games, tinkering with computers, and trying to learn
+            acoustic guitar 🎸
           </p>
           <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
-            Technologies I tend to use:{' '}
-            <BoldText>React, JavaScript, TypeScript, Spring Boot, Java and Kotlin.</BoldText>
+            I work comfortably with a variety of languages and frameworks, but I&apos;m most
+            familiar with{' '}
+            <BoldText>React, JavaScript, TypeScript, Spring Boot, Java and Kotlin</BoldText>. I care
+            about accessibility, maintainability, and building software that real people depend on.
           </p>
         </article>
         <article>
