@@ -96,7 +96,7 @@ function Filter({
   onClick: () => void;
 }) {
   return (
-    <label className="cursor-pointer rounded-full bg-stone-200 px-3 py-1 text-sm font-medium text-stone-800 outline-offset-2 outline-black transition-colors select-none focus-within:outline-2 hover:bg-stone-300 has-checked:bg-stone-900 has-checked:text-white dark:bg-stone-700 dark:text-stone-200 dark:outline-white dark:hover:bg-stone-600 dark:has-checked:bg-white dark:has-checked:text-stone-900">
+    <label className="bg-button text-secondary active:bg-button-active hover:bg-button-hover cursor-pointer rounded-full px-3 py-1 text-sm font-medium outline-offset-2 outline-black transition-colors select-none focus-within:outline-2 has-checked:bg-stone-900 has-checked:text-white dark:outline-white dark:has-checked:bg-white dark:has-checked:text-stone-900">
       <input
         type="radio"
         checked={active}
