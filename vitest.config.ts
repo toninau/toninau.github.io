@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   test: {
-    exclude: [...configDefaults.exclude, '**/e2etests/**'],
+    exclude: [...configDefaults.exclude, '**/e2etests/**', '**/dist/**'],
     environment: 'jsdom',
     setupFiles: './vitest.setup.ts',
     coverage: {
