@@ -42,7 +42,7 @@ export default function RootLayout({
           <LoadingIndicatorProvider>
             <LoadingIndicator />
             <div className="mb-6 flex content-center justify-center px-4 py-6 sm:px-6">
-              <header className="grid w-full max-w-screen-sm grid-cols-3">
+              <header className="grid w-full max-w-(--breakpoint-sm) grid-cols-3">
                 <Link
                   href={'/'}
                   className="self-center justify-self-start text-2xl font-medium tracking-tighter text-stone-900 hover:underline dark:text-white"

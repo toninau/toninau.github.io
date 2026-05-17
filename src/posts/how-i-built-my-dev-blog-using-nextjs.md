@@ -2,6 +2,10 @@
 title: 'How I built my dev blog using Next.js'
 published: '2025-01-01'
 description: 'Building a dev blog using Next.js App Router.'
+tags:
+  - React
+  - TypeScript
+  - Next.js
 ---
 
 So, for a while now I've wanted to try out blogging (mainly for practice), and because I'm a software engineer, I opted to build my own dev blog instead of using some already existing blogging platform.

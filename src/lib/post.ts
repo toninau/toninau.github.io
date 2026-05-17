@@ -13,6 +13,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 
 import { parseIsoDateString } from './date';
+import { parseTags, TagId } from './tag';
+import { Result } from './types';
 
 export type PostId = string & { _brand: 'postId' };
 
@@ -21,6 +23,7 @@ export type FrontMatter = {
   published: Date;
   updated: Date | null;
   description: string;
+  tags: TagId[];
 };
 
 export type PostMatter = {
@@ -34,19 +37,16 @@ export type Post = {
   postId: PostId;
 };
 
-export type FrontPagePost = Omit<Post, 'html'>;
+export type HomePagePost = Omit<Post, 'html'>;
 
-export type ParsePostMatterResult =
-  | { isValid: true; value: PostMatter }
-  | { isValid: false; message: string };
-
-export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResult {
+export function parsePostMatter(fileContent: matter.Input): Result<PostMatter> {
   const matterResult = matter(fileContent);
 
   const title = matterResult.data.title;
   const published = parseIsoDateString(matterResult.data.published);
   const updated = matterResult.data.updated ? parseIsoDateString(matterResult.data.updated) : null;
   const description = matterResult.data.description;
+  const tagsResult = parseTags(matterResult.data.tags);
 
   if (Number.isNaN(published.getTime())) {
     return {
@@ -76,6 +76,13 @@ export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResul
     };
   }
 
+  if (!tagsResult.isValid) {
+    return {
+      isValid: false,
+      message: `Front matter property "tags" is not valid: "${tagsResult.message}".`
+    };
+  }
+
   return {
     isValid: true,
     value: {
@@ -84,7 +91,8 @@ export function parsePostMatter(fileContent: matter.Input): ParsePostMatterResul
         title,
         published,
         updated,
-        description
+        description,
+        tags: tagsResult.value
       }
     }
   };
@@ -102,7 +110,7 @@ export function getPostIds(postsDirectory: string): { postId: PostId }[] {
   }));
 }
 
-export function getSortedFrontPagePosts(postsDirectory: string): FrontPagePost[] {
+export function getSortedHomePagePosts(postsDirectory: string): HomePagePost[] {
   return readdirSync(postsDirectory)
     .map((filename) => {
       const postId = parsePostId(filename);

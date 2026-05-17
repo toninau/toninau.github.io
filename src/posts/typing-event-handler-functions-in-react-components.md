@@ -2,6 +2,9 @@
 title: 'Typing event handler functions in React components'
 published: '2025-02-16'
 description: 'Avoiding type repetition in event handler functions.'
+tags:
+  - React
+  - TypeScript
 ---
 
 Here's a simple React application written in JavaScript that contains a `Rating` component:

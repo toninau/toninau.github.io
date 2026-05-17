@@ -3,6 +3,10 @@ title: 'Make illegal states unrepresentable when designing React components'
 description: 'Representing the logic of the component using types.'
 published: '2025-04-22'
 updated: '2025-05-05'
+tags:
+  - TypeScript
+  - Accessibility
+  - React
 ---
 
 _This post was inspired by [Designing with types: Making illegal states unrepresentable](https://fsharpforfunandprofit.com/posts/designing-with-types-making-illegal-states-unrepresentable/)._

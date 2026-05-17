@@ -5,20 +5,23 @@ import {
   FrontMatter,
   getPost,
   getPostIds,
-  getSortedFrontPagePosts,
+  getSortedHomePagePosts,
   parsePostId,
   parsePostMatter,
-  ParsePostMatterResult,
-  PostMatterError
+  PostMatterError,
+  PostMatter
 } from './post';
 import { formatIsoDate } from './date';
+import { Result } from './types';
+import { tagId } from './tag';
 
 function createPostMarkdown(frontMatter: Partial<FrontMatter>, content: string) {
   const markdownFrontMatter = {
     title: frontMatter.title ? `'${frontMatter.title}'` : null,
     published: frontMatter.published ? `'${formatIsoDate(frontMatter.published)}'` : null,
     updated: frontMatter.updated ? `'${formatIsoDate(frontMatter.updated)}'` : null,
-    description: frontMatter.description ? `'${frontMatter.description}'` : null
+    description: frontMatter.description ? `'${frontMatter.description}'` : null,
+    tags: frontMatter.tags ? `[${frontMatter.tags.map((t) => `'${t}'`).join(', ')}]` : null
   } satisfies Record<keyof FrontMatter, unknown>;
 
   const markdownFrontMatterString = Object.entries(markdownFrontMatter)
@@ -37,7 +40,7 @@ const testBrokenPostsDirectory = join(cwd(), 'src', 'lib', 'test', 'broken_posts
 describe('post', () => {
   describe('parsePostMatter', () => {
     test('parsing valid post works', () => {
-      const validMatter: ParsePostMatterResult = {
+      const validMatter: Result<PostMatter> = {
         isValid: true,
         value: {
           content: 'This is content',
@@ -45,7 +48,8 @@ describe('post', () => {
             title: 'Front Matter Test',
             published: new Date(2024, 8, 29),
             updated: null,
-            description: 'Front Matter Description'
+            description: 'Front Matter Description',
+            tags: [tagId('Aaa'), tagId('Bbb')]
           }
         }
       };
@@ -63,7 +67,7 @@ describe('post', () => {
         'This is content'
       );
 
-      const invalidMatter: ParsePostMatterResult = {
+      const invalidMatter: Result<PostMatter> = {
         isValid: false,
         message: 'Front matter is missing "published" property or "published" is not a valid date.'
       };
@@ -74,7 +78,7 @@ describe('post', () => {
     test('matter is invalid when published property is invalid', () => {
       const postMarkdown = "---\ntitle: 'test'\ndescription: 'test'\npublished: 'AAAA-AA-AA'\n---";
 
-      const invalidMatter: ParsePostMatterResult = {
+      const invalidMatter: Result<PostMatter> = {
         isValid: false,
         message: 'Front matter is missing "published" property or "published" is not a valid date.'
       };
@@ -86,7 +90,7 @@ describe('post', () => {
       const postMarkdown =
         "---\ntitle: 'test'\ndescription: 'test'\npublished: '2020-01-01'\nupdated: 'AAAA-AA-AA'\n---";
 
-      const invalidMatter: ParsePostMatterResult = {
+      const invalidMatter: Result<PostMatter> = {
         isValid: false,
         message: 'Front matter property "updated" is not a valid date.'
       };
@@ -100,7 +104,7 @@ describe('post', () => {
         'This is content'
       );
 
-      const invalidMatter: ParsePostMatterResult = {
+      const invalidMatter: Result<PostMatter> = {
         isValid: false,
         message: 'Front matter is missing "title" property or "title" is not a string.'
       };
@@ -113,9 +117,22 @@ describe('post', () => {
         { published: new Date(2020, 0, 1), title: 'test' },
         'This is content'
       );
-      const invalidMatter: ParsePostMatterResult = {
+      const invalidMatter: Result<PostMatter> = {
         isValid: false,
         message: 'Front matter is missing "description" property or "description" is not a string.'
+      };
+
+      expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
+    });
+
+    test('matter is invalid when tags are missing', () => {
+      const postMarkdown = createPostMarkdown(
+        { published: new Date(2020, 0, 1), title: 'test', description: 'test' },
+        'This is content'
+      );
+      const invalidMatter: Result<PostMatter> = {
+        isValid: false,
+        message: 'Front matter property "tags" is not valid: "Not an array".'
       };
 
       expect(parsePostMatter(postMarkdown)).toEqual(invalidMatter);
@@ -130,9 +147,9 @@ describe('post', () => {
     });
   });
 
-  describe('getSortedFrontPagePosts', () => {
-    test('returns front page posts sorted by date', () => {
-      const [newerPost, olderPost] = getSortedFrontPagePosts(testPostsDirectory);
+  describe('getSortedHomePagePosts', () => {
+    test('returns home page posts sorted by date', () => {
+      const [newerPost, olderPost] = getSortedHomePagePosts(testPostsDirectory);
 
       expect(
         newerPost.frontMatter.published.getTime() > olderPost.frontMatter.published.getTime()
@@ -141,7 +158,7 @@ describe('post', () => {
 
     test('throws PostMatterError when front matter is not valid', () => {
       assert.throws(
-        () => getSortedFrontPagePosts(testBrokenPostsDirectory),
+        () => getSortedHomePagePosts(testBrokenPostsDirectory),
         PostMatterError,
         'Content in broken-post-one.md is invalid. Front matter is missing "published" property or "published" is not a valid date.'
       );
@@ -154,7 +171,8 @@ describe('post', () => {
         published: new Date(2020, 0, 1),
         description: 'This is a test description',
         title: 'This is a test post',
-        updated: null
+        updated: null,
+        tags: [tagId('Aaa'), tagId('Bbb')]
       };
 
       const post = await getPost(testPostsDirectory, parsePostId('test-post-one.md'));
