@@ -9,7 +9,7 @@ export default function HomePage() {
       <main className="w-full max-w-(--breakpoint-sm)">
         <h1 className="sr-only">toninau&apos;s Dev Blog</h1>
         <article>
-          <h2 className="mb-8 mt-6 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
+          <h2 className="mt-6 mb-8 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
             About
           </h2>
           <p className="my-5 font-serif text-stone-700 dark:text-stone-300">

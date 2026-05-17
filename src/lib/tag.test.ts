@@ -6,55 +6,55 @@ describe('tag', () => {
     test('returns invalid for non-array input', () => {
       expect(parseTags('string')).toEqual({
         isValid: false,
-        message: 'Not an array',
+        message: 'Not an array'
       });
       expect(parseTags(123)).toEqual({
         isValid: false,
-        message: 'Not an array',
+        message: 'Not an array'
       });
       expect(parseTags(null)).toEqual({
         isValid: false,
-        message: 'Not an array',
+        message: 'Not an array'
       });
       expect(parseTags(undefined)).toEqual({
         isValid: false,
-        message: 'Not an array',
+        message: 'Not an array'
       });
     });
 
     test('returns invalid for empty array', () => {
       expect(parseTags([])).toEqual({
         isValid: true,
-        value: [],
+        value: []
       });
     });
 
     test('returns invalid for non-string items', () => {
       expect(parseTags(['valid', 123])).toEqual({
         isValid: false,
-        message: 'Tag "123" is not a string',
+        message: 'Tag "123" is not a string'
       });
       expect(parseTags([null])).toEqual({
         isValid: false,
-        message: 'Tag "null" is not a string',
+        message: 'Tag "null" is not a string'
       });
     });
 
     test('returns invalid for empty strings', () => {
       expect(parseTags([''])).toEqual({
         isValid: false,
-        message: 'Tag is empty',
+        message: 'Tag is empty'
       });
       expect(parseTags(['valid', ''])).toEqual({
         isValid: false,
-        message: 'Tag is empty',
+        message: 'Tag is empty'
       });
     });
 
     test('returns invalid for whitespace-only strings', () => {
       expect(parseTags(['   '])).toEqual({
         isValid: false,
-        message: 'Tag is empty',
+        message: 'Tag is empty'
       });
     });
 
@@ -62,7 +62,7 @@ describe('tag', () => {
       const longTag = 'a'.repeat(16);
       expect(parseTags([longTag])).toEqual({
         isValid: false,
-        message: `Tag "${longTag}" is too long, max tag length is 15`,
+        message: `Tag "${longTag}" is too long, max tag length is 15`
       });
     });
 

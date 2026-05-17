@@ -27,11 +27,11 @@ export default async function PostPage(props: PostPageProps) {
     <div className="flex content-center justify-center sm:px-6">
       <main className="w-full max-w-(--breakpoint-sm)">
         <article>
-          <header className="mb-8 mt-6 max-sm:mx-4">
+          <header className="mt-6 mb-8 max-sm:mx-4">
             <h1 className="my-2 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
               {post.frontMatter.title}
             </h1>
-            <dl className="my-1 flex items-center gap-2 font-serif text-sm font-normal text-secondary max-[300px]:max-w-min">
+            <dl className="text-secondary my-1 flex items-center gap-2 font-serif text-sm font-normal max-[300px]:max-w-min">
               <div>
                 <dt className="sr-only">Published</dt>
                 <dd>
@@ -54,7 +54,7 @@ export default async function PostPage(props: PostPageProps) {
             </dl>
           </header>
           <section
-            className="prose prose-stone min-w-full wrap-break-word dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif prose-pre:px-0 prose-ol:font-serif prose-ul:font-serif max-sm:prose-pre:rounded-none max-sm:[&>*:not(figure)]:mx-4"
+            className="prose prose-stone dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif prose-pre:px-0 prose-ol:font-serif prose-ul:font-serif max-sm:prose-pre:rounded-none min-w-full wrap-break-word max-sm:[&>*:not(figure)]:mx-4"
             dangerouslySetInnerHTML={{ __html: post.html }}
           ></section>
           <footer className="my-8 border-t border-stone-200 pt-8 max-sm:mx-4 dark:border-stone-700">

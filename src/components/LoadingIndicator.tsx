@@ -66,7 +66,7 @@ export function LoadingIndicator() {
         <div className="flex w-full max-w-(--breakpoint-sm) justify-end">
           {isLoading && (
             <div
-              className={`${isLoading ? 'loading-animation animate-fade-in' : ''} invisible rounded-lg bg-button p-2 text-secondary opacity-0`}
+              className={`${isLoading ? 'loading-animation animate-fade-in' : ''} bg-button text-secondary invisible rounded-lg p-2 opacity-0`}
             >
               <div className="animate-spin">
                 <LoadingSpinner />
