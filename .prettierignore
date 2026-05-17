@@ -14,6 +14,7 @@ dist-ssr
 *.local
 **/test/**/*.md
 *.output.html
+tsconfig.json
 
 # Editor directories and files
 .vscode/*
