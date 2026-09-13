@@ -27,8 +27,11 @@ export default function HomePage() {
           <p className="my-5 font-serif text-stone-700 dark:text-stone-300">
             I work comfortably with a variety of languages and frameworks, but I&apos;m most
             familiar with{' '}
-            <BoldText>React, JavaScript, TypeScript, Spring Boot, Java and Kotlin</BoldText>. I care
-            about accessibility, maintainability, and building software that real people depend on.
+            <BoldText>
+              React, JavaScript, TypeScript, Spring Boot, Java, Kotlin and PostgreSQL
+            </BoldText>
+            . I care about accessibility, maintainability, and building software that real people
+            depend on.
           </p>
         </article>
         <article>
