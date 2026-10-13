@@ -1,5 +1,6 @@
 import DateText from '@/components/DateText';
 import ReturnToFrontPageLink from '@/components/ReturnToFrontPageLink';
+import Link from '@/components/Link';
 import { getPost, getPostIds, PostId, postsDirectory } from '@/lib/post';
 
 type PostPageProps = {
@@ -57,6 +58,17 @@ export default async function PostPage(props: PostPageProps) {
             className="prose prose-stone dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif prose-pre:px-0 prose-ol:font-serif prose-ul:font-serif max-sm:prose-pre:rounded-none min-w-full wrap-break-word max-sm:[&>*:not(figure)]:mx-4"
             dangerouslySetInnerHTML={{ __html: post.html }}
           ></section>
+          <div className="mt-8 flex flex-wrap gap-2">
+            {post.frontMatter.tags.map((tag) => (
+              <Link
+                key={tag}
+                href={`/?filter=${tag}#posts`}
+                className="text-secondary text-sm hover:underline"
+              >
+                #{tag}
+              </Link>
+            ))}
+          </div>
           <footer className="my-8 border-t border-stone-200 pt-8 max-sm:mx-4 dark:border-stone-700">
             <ReturnToFrontPageLink />
           </footer>

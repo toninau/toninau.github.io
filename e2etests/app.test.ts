@@ -119,3 +119,42 @@ test.describe('404', () => {
     await expect(page.getByRole('heading', { name: 'Posts' })).toBeVisible();
   });
 });
+
+test.describe('tag filtering', () => {
+  test('clicking a tag link on a post page navigates to home page with filter applied', async ({
+    page
+  }) => {
+    // Navigate to first post
+    const postLink = page
+      .getByRole('article')
+      .filter({ has: page.getByRole('heading', { name: 'Posts' }) })
+      .getByRole('link')
+      .first();
+
+    await postLink.click();
+    await page.waitForURL('**/posts/*');
+
+    // Click the first tag link
+    const firstTagLink = page.getByRole('link', { name: /^#/ }).first();
+    await firstTagLink.click();
+
+    // Ignore "#" from the tag
+    const firstTagLinkTextContent = (await firstTagLink.textContent())?.substring(1) ?? '';
+
+    await page.waitForURL('/*');
+    await expect(page.getByRole('radio', { name: firstTagLinkTextContent })).toBeChecked();
+    await expect(page).toHaveURL(/\/.*filter=[^&]+.*/);
+  });
+
+  test('selecting a tag on the home page filters the posts list', async ({ page }) => {
+    const initialCount = await page.getByRole('article').count();
+
+    await page.getByText('Filter by').locator('//following-sibling::label').nth(1).click();
+
+    // Verify URL reflects the selection
+    await expect(page).toHaveURL(/\/.*filter=[^&]+.*/);
+    // Verify that articles are still visible and count might have changed (should be <= initialCount)
+    const finalCount = await page.getByRole('article').count();
+    expect(finalCount).toBeLessThanOrEqual(initialCount);
+  });
+});

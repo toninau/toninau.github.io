@@ -1,34 +1,60 @@
 'use client';
-import { ReactNode, useMemo, useState } from 'react';
-import { HomePagePost } from '@/lib/post';
+import { ReactNode, useMemo } from 'react';
 import ArrowRight from '@/components/icons/ArrowRight';
 import Link from '@/components/Link';
 import DateText from '@/components/DateText';
-import { TagId } from '@/lib/tag';
+import { tagId, TagId } from '@/lib/tag';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { HomePagePost } from '@/lib/post';
 
 export function Posts({ posts }: { posts: HomePagePost[] }) {
-  const [activeTag, setActiveTag] = useState<TagId | null>(null);
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+  const pathname = usePathname();
 
   const allTags: TagId[] = useMemo(
     () => Array.from(new Set(posts.map((post) => post.frontMatter.tags).flat())).sort(),
     [posts]
   );
 
+  const filterSearchParam = searchParams.get('filter');
+  const activeTag =
+    filterSearchParam && allTags.includes(tagId(filterSearchParam))
+      ? tagId(filterSearchParam)
+      : null;
+
   const filteredPosts = activeTag
     ? posts.filter((post) => post.frontMatter.tags?.includes(activeTag))
     : posts;
 
+  const handleFilterChange = (tag: TagId | null) => {
+    const params = new URLSearchParams(searchParams);
+
+    if (tag) {
+      params.set('filter', tag);
+    } else {
+      params.delete('filter');
+    }
+
+    replace(`${pathname}?${params.toString()}`, {
+      scroll: false
+    });
+  };
+
   return (
     <>
-      <h2 className="mt-12 mb-8 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white">
+      <h2
+        id="posts"
+        className="mt-12 mb-8 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white"
+      >
         Posts
       </h2>
       <FilterGroup>
-        <Filter active={activeTag === null} onClick={() => setActiveTag(null)} value="All" />
+        <Filter active={activeTag === null} onClick={() => handleFilterChange(null)} value="All" />
         {allTags.map((tag) => (
           <Filter
             active={activeTag === tag}
-            onClick={() => setActiveTag(tag)}
+            onClick={() => handleFilterChange(tag)}
             value={tag}
             key={tag}
           />

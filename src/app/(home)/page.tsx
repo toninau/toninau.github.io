@@ -1,5 +1,6 @@
 import { getSortedHomePagePosts, postsDirectory } from '@/lib/post';
 import { Posts } from '@/app/(home)/Posts';
+import { Suspense } from 'react';
 
 export default function HomePage() {
   const homePagePosts = getSortedHomePagePosts(postsDirectory);
@@ -35,7 +36,9 @@ export default function HomePage() {
           </p>
         </article>
         <article>
-          <Posts posts={homePagePosts} />
+          <Suspense fallback={<p>loading posts...</p>}>
+            <Posts posts={homePagePosts} />
+          </Suspense>
         </article>
       </main>
     </div>
