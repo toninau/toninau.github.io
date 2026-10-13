@@ -10,6 +10,7 @@
 
   --animate-fade-in: fade-in 150ms ease-out;
   --animate-fade-out: fade-out 150ms ease-out forwards;
+  --animate-loading-bar: loading-bar 1.3s ease-in-out infinite;
 
   --color-background: var(--background);
   --color-secondary: var(--secondary);
@@ -42,6 +43,10 @@
       visibility: hidden;
       transform: scaleY(0.8);
     }
+  }
+  @keyframes loading-bar {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
   }
 }
 
@@ -98,11 +103,6 @@ body {
 
 .heading-link:hover {
   text-decoration: underline;
-}
-
-.loading-animation {
-  animation-delay: 300ms;
-  animation-fill-mode: forwards;
 }
 
 span[data-line] {

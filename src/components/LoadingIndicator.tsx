@@ -1,20 +1,39 @@
 'use client';
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import LoadingSpinner from './icons/LoadingSpinner';
 
 const LoadingIndicatorStateContext = createContext<boolean | undefined>(undefined);
 
 const LoadingIndicatorUpdaterContext = createContext<
-  React.Dispatch<React.SetStateAction<boolean>> | undefined
+  | {
+      startLoading: () => void;
+      finishLoading: () => void;
+    }
+  | undefined
 >(undefined);
 
 export function LoadingIndicatorProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const startLoading = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setIsLoading(true);
+    }, 300);
+  }, [setIsLoading]);
+
+  const finishLoading = useCallback(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setIsLoading(false);
+  }, [setIsLoading]);
 
   return (
     <LoadingIndicatorStateContext.Provider value={isLoading}>
-      <LoadingIndicatorUpdaterContext.Provider value={setIsLoading}>
+      <LoadingIndicatorUpdaterContext.Provider value={{ startLoading, finishLoading }}>
         {children}
       </LoadingIndicatorUpdaterContext.Provider>
     </LoadingIndicatorStateContext.Provider>
@@ -31,24 +50,13 @@ export function useLoadingIndicatorState() {
 }
 
 export function useLoadingIndicatorUpdater() {
-  const setIsLoading = useContext(LoadingIndicatorUpdaterContext);
+  const updater = useContext(LoadingIndicatorUpdaterContext);
 
-  if (typeof setIsLoading === 'undefined') {
+  if (typeof updater === 'undefined') {
     throw new Error('useLoadingIndicatorUpdater must be used within a LoadingIndicatorProvider');
   }
 
-  const startLoading = useCallback(() => {
-    setIsLoading(true);
-  }, [setIsLoading]);
-
-  const finishLoading = useCallback(() => {
-    setIsLoading(false);
-  }, [setIsLoading]);
-
-  return {
-    startLoading,
-    finishLoading
-  };
+  return updater;
 }
 
 export function LoadingIndicator() {
@@ -62,20 +70,13 @@ export function LoadingIndicator() {
 
   return (
     <div aria-live="polite" aria-busy={isLoading}>
-      <div className="pointer-events-none fixed bottom-0 z-10 flex w-full justify-center px-4 py-8 sm:px-6">
-        <div className="flex w-full max-w-(--breakpoint-sm) justify-end">
-          {isLoading && (
-            <div
-              className={`${isLoading ? 'loading-animation animate-fade-in' : ''} bg-button text-secondary invisible rounded-lg p-2 opacity-0`}
-            >
-              <div className="animate-spin">
-                <LoadingSpinner />
-              </div>
-              <span className="sr-only">Loading</span>
-            </div>
-          )}
+      {isLoading && (
+        <div className="fixed top-0 left-0 z-100 h-1 w-full overflow-hidden">
+          <div className="via-secondary animate-loading-bar h-full bg-linear-to-r from-transparent to-transparent">
+            <span className="sr-only">Loading</span>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

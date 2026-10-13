@@ -1,4 +1,4 @@
-import { render, screen, renderHook, fireEvent } from '@testing-library/react';
+import { render, screen, renderHook, fireEvent, waitFor } from '@testing-library/react';
 import { expect, describe, test } from 'vitest';
 import React from 'react';
 import {
@@ -41,7 +41,7 @@ describe('<LoadingIndicator />', () => {
     expect(screen.queryByText('Loading')).not.toBeInTheDocument();
   });
 
-  test('loading indicator becomes visible when loading state is started', () => {
+  test('loading indicator becomes visible when loading state is started', async () => {
     render(
       <LoadingIndicatorProvider>
         <LoadingIndicator />
@@ -51,7 +51,12 @@ describe('<LoadingIndicator />', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'show' }));
 
-    expect(screen.getByText('Loading')).toBeInTheDocument();
+    await waitFor(
+      () => {
+        expect(screen.getByText('Loading')).toBeInTheDocument();
+      },
+      { timeout: 1000 }
+    );
   });
 
   test('loading indicator becomes hidden when loading state is finished', () => {
