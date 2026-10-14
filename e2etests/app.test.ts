@@ -134,8 +134,13 @@ test.describe('tag filtering', () => {
     await postLink.click();
     await page.waitForURL('**/posts/*');
 
-    // Click the first tag link
-    const firstTagLink = page.getByRole('link', { name: /^#/ }).first();
+    // Get first tag link
+    const firstTagLink = page
+      .getByRole('complementary')
+      .filter({ has: page.getByRole('heading', { name: 'Posts by topics' }) })
+      .getByRole('link')
+      .first();
+
     await firstTagLink.click();
 
     // Ignore "#" from the tag

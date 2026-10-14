@@ -57,18 +57,23 @@ export default async function PostPage(props: PostPageProps) {
           <section
             className="prose prose-stone dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tighter prose-p:font-serif prose-pre:px-0 prose-ol:font-serif prose-ul:font-serif max-sm:prose-pre:rounded-none min-w-full wrap-break-word max-sm:[&>*:not(figure)]:mx-4"
             dangerouslySetInnerHTML={{ __html: post.html }}
-          ></section>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {post.frontMatter.tags.map((tag) => (
-              <Link
-                key={tag}
-                href={`/?filter=${tag}#posts`}
-                className="text-secondary text-sm hover:underline"
-              >
-                #{tag}
-              </Link>
-            ))}
-          </div>
+          />
+          <aside className="mt-8 max-sm:mx-4">
+            <h2 className="sr-only">Posts by topics</h2>
+            <ul className="flex flex-wrap gap-2">
+              {post.frontMatter.tags.map((tag) => (
+                <li key={tag}>
+                  <Link
+                    href={`/?filter=${tag}#posts`}
+                    className="text-secondary text-sm hover:underline"
+                  >
+                    <span aria-hidden={true}>#</span>
+                    {tag}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </aside>
           <footer className="my-8 border-t border-stone-200 pt-8 max-sm:mx-4 dark:border-stone-700">
             <ReturnToFrontPageLink />
           </footer>
