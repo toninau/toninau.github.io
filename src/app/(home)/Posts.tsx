@@ -4,13 +4,11 @@ import ArrowRight from '@/components/icons/ArrowRight';
 import Link from '@/components/Link';
 import DateText from '@/components/DateText';
 import { tagId, TagId, Tag } from '@/lib/tag';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { HomePagePost } from '@/lib/post';
 
 export function Posts({ posts }: { posts: HomePagePost[] }) {
   const searchParams = useSearchParams();
-  const { replace } = useRouter();
-  const pathname = usePathname();
 
   const allTags: Tag[] = useMemo(() => {
     const set = new Set();
@@ -41,9 +39,8 @@ export function Posts({ posts }: { posts: HomePagePost[] }) {
       params.delete('filter');
     }
 
-    replace(`${pathname}?${params.toString()}`, {
-      scroll: false
-    });
+    // update the browser's history stack without reloading the page.
+    window.history.pushState(null, '', `?${params.toString()}`);
   };
 
   return (

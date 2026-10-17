@@ -1,15 +1,13 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Posts } from './Posts';
-import { useSearchParams, useRouter, usePathname, ReadonlyURLSearchParams } from 'next/navigation';
+import { useSearchParams, ReadonlyURLSearchParams } from 'next/navigation';
 import { HomePagePost, PostId } from '@/lib/post';
 import { ReactNode } from 'react';
 import { tagId } from '@/lib/tag';
 
 vi.mock('next/navigation', () => ({
-  useSearchParams: vi.fn(),
-  useRouter: vi.fn(),
-  usePathname: vi.fn()
+  useSearchParams: vi.fn()
 }));
 
 vi.mock('@/components/Link', () => ({
@@ -18,8 +16,6 @@ vi.mock('@/components/Link', () => ({
   )
 }));
 
-const mockedUseRouter = vi.mocked(useRouter, { partial: true });
-const mockedUsePathname = vi.mocked(usePathname);
 const mockedUseSearchParams = vi.mocked(useSearchParams);
 
 const mockPosts = [
@@ -59,18 +55,8 @@ const mockPosts = [
 ] satisfies HomePagePost[];
 
 describe('<Posts />', () => {
-  const mockReplace = vi.fn();
-  const mockPathname = '/';
-
   beforeEach(() => {
     vi.clearAllMocks();
-
-    mockedUseRouter.mockReturnValue({
-      replace: mockReplace,
-      push: vi.fn()
-    });
-
-    mockedUsePathname.mockReturnValue(mockPathname);
 
     mockedUseSearchParams.mockReturnValue(new URLSearchParams() as ReadonlyURLSearchParams);
   });
@@ -106,15 +92,15 @@ describe('<Posts />', () => {
   });
 
   test('updates URL and filters posts when "Tech" button is clicked', () => {
+    const pushSpy = vi.spyOn(history, 'pushState');
+
     render(<Posts posts={mockPosts} />);
 
     const techFilter = screen.getByText('Tech');
     fireEvent.click(techFilter);
 
-    // Verify the router replace was called with the correct params
-    expect(mockReplace).toHaveBeenCalledWith('/?filter=tech', {
-      scroll: false
-    });
+    // Verify the router push was called with the correct params
+    expect(pushSpy).toHaveBeenCalledWith(null, '', '?filter=tech');
   });
 
   test('removes filter when "All" is clicked', () => {
@@ -122,14 +108,15 @@ describe('<Posts />', () => {
     mockedUseSearchParams.mockReturnValue(
       new URLSearchParams('filter=tech') as ReadonlyURLSearchParams
     );
+    const pushSpy = vi.spyOn(history, 'pushState');
 
     render(<Posts posts={mockPosts} />);
 
     const allFilter = screen.getByText('All');
     fireEvent.click(allFilter);
 
-    // Should call replace with no filter parameter
-    expect(mockReplace).toHaveBeenCalledWith('/?', { scroll: false });
+    // Should call push with no filter parameter
+    expect(pushSpy).toHaveBeenCalledWith(null, '', '?');
   });
 
   test('displays correct post description and links', () => {
