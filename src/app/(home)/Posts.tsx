@@ -3,7 +3,7 @@ import { ReactNode, useMemo } from 'react';
 import ArrowRight from '@/components/icons/ArrowRight';
 import Link from '@/components/Link';
 import DateText from '@/components/DateText';
-import { tagId, TagId } from '@/lib/tag';
+import { tagId, TagId, Tag } from '@/lib/tag';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { HomePagePost } from '@/lib/post';
 
@@ -12,19 +12,24 @@ export function Posts({ posts }: { posts: HomePagePost[] }) {
   const { replace } = useRouter();
   const pathname = usePathname();
 
-  const allTags: TagId[] = useMemo(
-    () => Array.from(new Set(posts.map((post) => post.frontMatter.tags).flat())).sort(),
-    [posts]
-  );
+  const allTags: Tag[] = useMemo(() => {
+    const set = new Set();
+    return posts
+      .map((post) => post.frontMatter.tags)
+      .flat()
+      .filter((o) => !set.has(o.id) && set.add(o.id))
+      .toSorted((a, b) => a.name.localeCompare(b.name));
+  }, [posts]);
 
   const filterSearchParam = searchParams.get('filter');
-  const activeTag =
-    filterSearchParam && allTags.includes(tagId(filterSearchParam))
-      ? tagId(filterSearchParam)
-      : null;
+
+  const activeTag = useMemo(() => {
+    if (!filterSearchParam) return null;
+    return allTags.find((t) => t.id === tagId(filterSearchParam)) ?? null;
+  }, [allTags, filterSearchParam]);
 
   const filteredPosts = activeTag
-    ? posts.filter((post) => post.frontMatter.tags?.includes(activeTag))
+    ? posts.filter((post) => post.frontMatter.tags?.some((t) => t.id === activeTag?.id))
     : posts;
 
   const handleFilterChange = (tag: TagId | null) => {
@@ -53,10 +58,10 @@ export function Posts({ posts }: { posts: HomePagePost[] }) {
         <Filter active={activeTag === null} onClick={() => handleFilterChange(null)} value="All" />
         {allTags.map((tag) => (
           <Filter
-            active={activeTag === tag}
-            onClick={() => handleFilterChange(tag)}
-            value={tag}
-            key={tag}
+            active={activeTag?.id === tag.id}
+            onClick={() => handleFilterChange(tag.id)}
+            value={tag.name}
+            key={tag.id}
           />
         ))}
       </FilterGroup>

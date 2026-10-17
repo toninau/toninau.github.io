@@ -21,7 +21,7 @@ function createPostMarkdown(frontMatter: Partial<FrontMatter>, content: string) 
     published: frontMatter.published ? `'${formatIsoDate(frontMatter.published)}'` : null,
     updated: frontMatter.updated ? `'${formatIsoDate(frontMatter.updated)}'` : null,
     description: frontMatter.description ? `'${frontMatter.description}'` : null,
-    tags: frontMatter.tags ? `[${frontMatter.tags.map((t) => `'${t}'`).join(', ')}]` : null
+    tags: frontMatter.tags ? `[${frontMatter.tags.map((t) => `'${t.name}'`).join(', ')}]` : null
   } satisfies Record<keyof FrontMatter, unknown>;
 
   const markdownFrontMatterString = Object.entries(markdownFrontMatter)
@@ -49,7 +49,10 @@ describe('post', () => {
             published: new Date(2024, 8, 29),
             updated: null,
             description: 'Front Matter Description',
-            tags: [tagId('Aaa'), tagId('Bbb')]
+            tags: [
+              { name: 'aaa', id: tagId('aaa') },
+              { name: 'bbb', id: tagId('bbb') }
+            ]
           }
         }
       };
@@ -172,7 +175,10 @@ describe('post', () => {
         description: 'This is a test description',
         title: 'This is a test post',
         updated: null,
-        tags: [tagId('Aaa'), tagId('Bbb')]
+        tags: [
+          { name: 'aaa', id: tagId('aaa') },
+          { name: 'bbb', id: tagId('bbb') }
+        ]
       };
 
       const post = await getPost(testPostsDirectory, parsePostId('test-post-one.md'));

@@ -13,7 +13,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 
 import { parseIsoDateString } from './date';
-import { parseTags, TagId } from './tag';
+import { parseTags, Tag } from './tag';
 import { Result } from './types';
 
 export type PostId = string & { _brand: 'postId' };
@@ -23,7 +23,7 @@ export type FrontMatter = {
   published: Date;
   updated: Date | null;
   description: string;
-  tags: TagId[];
+  tags: Tag[];
 };
 
 export type PostMatter = {

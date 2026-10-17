@@ -62,13 +62,13 @@ export default async function PostPage(props: PostPageProps) {
             <h2 className="sr-only">Posts by topics</h2>
             <ul className="flex flex-wrap gap-2">
               {post.frontMatter.tags.map((tag) => (
-                <li key={tag}>
+                <li key={tag.id}>
                   <Link
-                    href={`/?filter=${tag}#posts`}
+                    href={`/?filter=${tag.id}#posts`}
                     className="text-secondary text-sm hover:underline"
                   >
                     <span aria-hidden={true}>#</span>
-                    {tag}
+                    {tag.name}
                   </Link>
                 </li>
               ))}
