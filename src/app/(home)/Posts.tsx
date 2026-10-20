@@ -45,12 +45,6 @@ export function Posts({ posts }: { posts: HomePagePost[] }) {
 
   return (
     <>
-      <h2
-        id="posts"
-        className="mt-12 mb-8 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white"
-      >
-        Posts
-      </h2>
       <FilterGroup>
         <Filter active={activeTag === null} onClick={() => handleFilterChange(null)} value="All" />
         {allTags.map((tag) => (

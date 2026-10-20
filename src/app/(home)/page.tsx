@@ -36,7 +36,17 @@ export default function HomePage() {
           </p>
         </article>
         <article>
-          <Suspense fallback={<p>loading posts...</p>}>
+          <h2
+            id="posts"
+            className="mt-12 mb-8 text-4xl font-semibold tracking-tighter text-stone-900 dark:text-white"
+          >
+            Posts
+          </h2>
+          <Suspense
+            fallback={
+              <p className="my-5 font-serif text-stone-700 dark:text-stone-300">loading posts...</p>
+            }
+          >
             <Posts posts={homePagePosts} />
           </Suspense>
         </article>
